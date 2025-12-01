@@ -1,0 +1,6 @@
+(0) 18:31:17 [impl::ParticipantImpl]:180 in configure: [0mThis is preCICE version 3.1.2
+(0) 18:31:17 [impl::ParticipantImpl]:181 in configure: [0mRevision info: v1.5-15-g042692a9-dirty
+(0) 18:31:17 [impl::ParticipantImpl]:182 in configure: [0mBuild type: Release (without debug log)
+(0) 18:31:17 [impl::ParticipantImpl]:200 in configure: [0mConfiguring preCICE with configuration "install_precice-config.xml"
+(0) 18:31:17 [impl::ParticipantImpl]:201 in configure: [0mI am participant "Participant1"
+(0) 18:31:17 [impl::ParticipantImpl]:163 in ~ParticipantImpl: [0mImplicitly finalizing in destructor

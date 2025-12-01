@@ -1,0 +1,66 @@
+================================================================================
+FORWARD MODEL ANALYSIS - MESH RESOLUTION COMPARISON
+================================================================================
+
+Analysis Date: 2025-12-01 19:48:43
+
+--------------------------------------------------------------------------------
+1. RANGE OF MOTION (ROM) ANALYSIS
+--------------------------------------------------------------------------------
+
+ROM Values:
+  4x4_0N      : Initial=34.970 cm, Final=34.970 cm, ROM=34.970 cm
+  4x4_31N     : Initial=34.970 cm, Final=41.958 cm, ROM=41.958 cm
+  8x8_0N      : Initial=34.970 cm, Final=34.970 cm, ROM=34.970 cm
+  8x8_31N     : Initial=34.970 cm, Final=41.958 cm, ROM=41.958 cm
+
+ROM Correlation (4x4 vs 8x8):
+  Pearson Correlation: r = 1.000000
+  R-squared:           R² = 1.000000
+  p-value:             p = 0.000000e+00
+  Linear Fit:          y = 1.000000x + 0.000001
+
+Elongation and Strain:
+  4x4_0N      : Elongation=0.000000 cm, Strain=0.00000000
+  4x4_31N     : Elongation=6.988297 cm, Strain=0.19983692
+  8x8_0N      : Elongation=0.000000 cm, Strain=0.00000000
+  8x8_31N     : Elongation=6.988297 cm, Strain=0.19983691
+
+--------------------------------------------------------------------------------
+2. RUNTIME ANALYSIS
+--------------------------------------------------------------------------------
+
+Individual Runtimes:
+  4x4_0N      : 434.61 s (7.24 min)
+  4x4_31N     : 454.17 s (7.57 min)
+  8x8_0N      : 5283.52 s (88.06 min)
+  8x8_31N     : 5319.26 s (88.65 min)
+
+Average Runtimes:
+  4x4 Mesh: 444.39 s (7.41 min)
+  8x8 Mesh: 5301.39 s (88.36 min)
+
+Runtime Reduction: 91.62%
+Speedup Factor:    11.93x
+
+--------------------------------------------------------------------------------
+3. KEY FINDINGS FOR PAPER
+--------------------------------------------------------------------------------
+
+✓ ROM Correlation:   R² > 1.0000
+✓ Runtime Reduction: 91.6% (88.4 min vs 7.4 min)
+
+Suggested Text for Paper:
+----------------------------------------
+Analysis of the achieved muscle ROM reveals a high correlation of ROM for both
+mesh resolutions (R² > 1.0000) in single-point comparison of different
+prestretches (0N and 31N), confirming that variations in ROM arise purely from
+discretization-dependent mechanical response rather than inconsistent geometric
+deformation. Regarding the runtime, the reduced mesh resolution results in a
+reduction of runtime by 91.6% (7.4 min vs 88.4 min).
+Therefore, the single-muscle cuboid model with reduced spatial resolution serves
+as a complexity reduced model, that retains similar accuracy in ROM-values and is
+thereby used for further algorithmic implementations in Section~\ref{sec:bayesian_optimization}
+and~\ref{sec:data_augmentation}.
+
+================================================================================
