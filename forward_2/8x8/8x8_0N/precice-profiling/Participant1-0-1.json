@@ -1,0 +1,11 @@
+{
+  "meta":{
+  "name": "Participant1",
+  "rank": "0",
+  "size": "1",
+  "unix_us": "1764351077366919",
+  "tinit": "2025-11-28T18:31:17.919",
+  "mode": "fundamental"
+  },
+  "events":[
+  {"et":"n","en":"construction","eid":0},{"et":"b","eid":0,"ts":39},{"et":"n","en":"construction/configure","eid":1},{"et":"b","eid":1,"ts":42},{"et":"e","eid":1,"ts":4767},{"et":"n","en":"construction/startProfilingBackend","eid":2},{"et":"n","en":"_GLOBAL","eid":3},{"et":"b","eid":3,"ts":0},{"et":"e","eid":0,"ts":5141},{"et":"n","en":"solver.initialize","eid":4},{"et":"b","eid":4,"ts":5143},{"et":"n","en":"finalize","eid":5},{"et":"b","eid":5,"ts":7830},{"et":"e","eid":5,"ts":7859},{"et":"e","eid":3,"ts":7860}]}
