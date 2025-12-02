@@ -1,0 +1,65 @@
+Für Kapitel 4 batch Datengenerierung:
+
+
+Zu verändernde Variablen in variables.py:
+Cuboid 4x4 razumova
+___________________________________________
+
+Prestretch force = 0 bis 31 N
+
+
+
+34.9 länge a (average men VL), 691.2 Volume (average men VL) -> b = 4.45 länge b
+
+Am = 500 (aus paper)
+
+100 ms endtime
+
+Rho = 10.616 (rho_max aus paper) - ACHTUNG: 2x in variables.py definiert
+
+
+
+
+
+# Parameter ranges
+# ----------------
+
+# 1. Force values (Newtons) - 0 to 31 N in 1er Schritten
+# Total: 32 values
+FORCES=(0 3 6 9 12 15 18 21 24 27 30 31)
+
+# 2. muscle_extent_y values (cm) - 32.69 to 34.97 in steps of 0.5
+MUSCLE_Y_VALUES=(32.69 33.19 33.69 34.19 34.97)
+
+# 3. Volume values (cm³) - 421.6 to 738, mit 455.9, 691.2 und 4 weiteren Werten dazwischen (58,8 schritte)
+VOLUME_VALUES=(421.6 455.9 514.7 573.5 632.3 691.2 738.0)
+
+# 4. Am values (surface area to volume ratio) - [cm⁻¹]
+AM_VALUES=(450 500 550)
+
+# 5. Rho values (density) - [1e-4 kg/cm³]
+RHO_VALUES=(10.493 10.534 10.575 10.616)
+
+# Simulation parameters
+ENDTIME_MS=100  # 100 ms simulation time
+
+
+
+
+
+
+Rest as standard parameter aus opendihu cuboid config:
+# material parameters
+# --------------------
+Pmax = 7.3                          # maximum stress [N/cm^2]
+Conductivity = 3.828                # sigma, conductivity [mS/cm]
+
+Cm = 0.58                           # membrane capacitance [uF/cm^2]
+damping_factor = 0                  # velocity dependent damping factor
+
+# Mooney-Rivlin parameters [c1,c2,b,d] of c1*(Ibar1 - 3) + c2*(Ibar2 - 3) + b/d (λ - 1) - b*ln(λ)
+# Heidlauf13: [6.352e-10 kPa, 3.627 kPa, 2.756e-5 kPa, 43.373] = [6.352e-11 N/cm^2, 3.627e-1 N/cm^2, 2.756e-6 N/cm^2, 43.373], pmax = 73 kPa = 7.3 N/cm^2
+# Heidlauf16: [3.176e-10 N/cm^2, 1.813 N/cm^2, 1.075e-2 N/cm^2, 9.1733], pmax = 7.3 N/cm^2
+c1 = 3.176e-10              # [N/cm^2]
+c2 = 1.813                  # [N/cm^2]
+b  = 1.075e-2               # [N/cm^2] anisotropy parameter

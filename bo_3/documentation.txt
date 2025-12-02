@@ -1,0 +1,37 @@
+Für Kapitel 3 - BO run:
+
+
+Cuboid 4x4 razumova verwenden (standard)
+___________________________________________
+
+Erlaubte Prestretch force, die als Zahl im terminal eingegeben werden muss: [0,31] N
+___________________________________________
+
+# zu verändernde Variablen in variables.py:
+
+muscle_extent = [4.45, 4.45, 34.97] # errechnet
+n_elements_muscle = [4, 4, 10] # 4x4 Vereinfachung
+n_points_whole_fiber = 30 # 4x4 Vereinfachung
+n_fibers_x = 3  # 4x4 Vereinfachung
+n_fibers_y = 3 # 4x4 Vereinfachung
+
+100 ms # endtime
+
+Rho = 10.616 # (kommt aus paper) - ACHTUNG: 2x in variables.py definiert
+___________________________________________
+
+
+Rest as standard parameter aus opendihu cuboid config:+
+
+Pmax = 7.3                          # maximum stress [N/cm^2]
+Conductivity = 3.828                # sigma, conductivity [mS/cm]
+Am = 500.0			    # surface to volume ratio, aus paper
+Cm = 0.58                           # membrane capacitance [uF/cm^2]
+damping_factor = 0                  # velocity dependent damping factor
+
+# Mooney-Rivlin parameters [c1,c2,b,d] of c1*(Ibar1 - 3) + c2*(Ibar2 - 3) + b/d (λ - 1) - b*ln(λ)
+# Heidlauf13: [6.352e-10 kPa, 3.627 kPa, 2.756e-5 kPa, 43.373] = [6.352e-11 N/cm^2, 3.627e-1 N/cm^2, 2.756e-6 N/cm^2, 43.373], pmax = 73 kPa = 7.3 N/cm^2
+# Heidlauf16: [3.176e-10 N/cm^2, 1.813 N/cm^2, 1.075e-2 N/cm^2, 9.1733], pmax = 7.3 N/cm^2
+c1 = 3.176e-10              # [N/cm^2]
+c2 = 1.813                  # [N/cm^2]
+b  = 1.075e-2               # [N/cm^2] anisotropy parameter

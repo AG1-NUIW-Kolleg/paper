@@ -15,6 +15,12 @@
   "suggested_values_for_paper": {
     "r_squared_threshold": "> 1.0000",
     "runtime_reduction_percent": "91.6%",
-    "runtime_comparison": "7.4 min vs 88.4 min"
+    "runtime_comparison": "7.4 min vs 88.4 min",
+    "tendon_compliance": "0.0000 cm"
+  },
+  "tendon_compliance": {
+    "initial_length_cm": 5.0,
+    "max_deviation_cm": 2.1000000138826636e-07,
+    "max_deviation_percent": 4.200000027765327e-06
   }
 }
