@@ -2,7 +2,7 @@
 FORWARD MODEL ANALYSIS - MESH RESOLUTION COMPARISON
 ================================================================================
 
-Analysis Date: 2025-12-01 19:48:43
+Analysis Date: 2025-12-02 14:19:58
 
 --------------------------------------------------------------------------------
 1. RANGE OF MOTION (ROM) ANALYSIS
@@ -44,23 +44,19 @@ Runtime Reduction: 91.62%
 Speedup Factor:    11.93x
 
 --------------------------------------------------------------------------------
-3. KEY FINDINGS FOR PAPER
+3. TENDON COMPLIANCE ANALYSIS (AMI MODEL)
+--------------------------------------------------------------------------------
+
+Initial Tendon Length:  5.0000 cm
+Maximum Deviation:      0.0000 cm
+Deviation Percentage:   0.00%
+
+--------------------------------------------------------------------------------
+4. KEY FINDINGS FOR PAPER
 --------------------------------------------------------------------------------
 
 ✓ ROM Correlation:   R² > 1.0000
 ✓ Runtime Reduction: 91.6% (88.4 min vs 7.4 min)
-
-Suggested Text for Paper:
-----------------------------------------
-Analysis of the achieved muscle ROM reveals a high correlation of ROM for both
-mesh resolutions (R² > 1.0000) in single-point comparison of different
-prestretches (0N and 31N), confirming that variations in ROM arise purely from
-discretization-dependent mechanical response rather than inconsistent geometric
-deformation. Regarding the runtime, the reduced mesh resolution results in a
-reduction of runtime by 91.6% (7.4 min vs 88.4 min).
-Therefore, the single-muscle cuboid model with reduced spatial resolution serves
-as a complexity reduced model, that retains similar accuracy in ROM-values and is
-thereby used for further algorithmic implementations in Section~\ref{sec:bayesian_optimization}
-and~\ref{sec:data_augmentation}.
+✓ Tendon Compliance: Max deviation 0.0000 cm (0.00%)
 
 ================================================================================

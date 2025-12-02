@@ -39,6 +39,8 @@ RESULTS_PATHS = {
     '8x8_31N': os.path.join(BASE_DIR, '8x8/8x8_31N/build_release'),
 }
 
+AMI_PATH = os.path.join(BASE_DIR, 'ami/build_release')
+
 OUTPUT_DIR = os.path.join(BASE_DIR, 'analysis')
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -139,6 +141,30 @@ def load_all_data():
     
     return pd.DataFrame(results), pd.DataFrame(runtimes)
 
+def load_tendon_positions(ami_path):
+    """Load tendon positions from AMI simulation (up to 10 ms)"""
+    tendon_file = os.path.join(ami_path, 'defaulttendon.txt')
+    if os.path.exists(tendon_file):
+        data = []
+        with open(tendon_file, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    parts = line.split()
+                    if len(parts) >= 3:
+                        time = float(parts[0])
+                        if time <= 10.0:  # Only analyze up to 10 ms
+                            pos_left = float(parts[1])
+                            pos_right = float(parts[2])
+                            data.append({
+                                'time_ms': time,
+                                'pos_left': pos_left,
+                                'pos_right': pos_right,
+                                'tendon_length': pos_right - pos_left
+                            })
+        return pd.DataFrame(data)
+    return None
+
 # =============================================================================
 # Analysis Functions
 # =============================================================================
@@ -206,6 +232,20 @@ def compute_rom_values(df_results):
         })
     
     return pd.DataFrame(rom_data)
+
+def analyze_tendon_compliance(df_tendon):
+    """Analyze tendon compliance from position data"""
+    if df_tendon is None or len(df_tendon) == 0:
+        return None
+    
+    initial_length = df_tendon['tendon_length'].iloc[0]
+    max_deviation = (df_tendon['tendon_length'] - initial_length).abs().max()
+    
+    return {
+        'initial_length': initial_length,
+        'max_deviation': max_deviation,
+        'max_deviation_percent': (max_deviation / initial_length) * 100
+    }
 
 # =============================================================================
 # Visualization Functions
@@ -403,11 +443,44 @@ def plot_elongation_comparison(df_rom, output_dir):
     plt.savefig(os.path.join(output_dir, 'elongation_strain_comparison.pdf'), bbox_inches='tight')
     plt.close()
 
+def plot_tendon_compliance(df_tendon, tendon_stats, output_dir):
+    """Plot tendon length over time"""
+    if df_tendon is None or len(df_tendon) == 0:
+        return
+    
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    ax.plot(df_tendon['time_ms'], df_tendon['tendon_length'], 'b-', linewidth=2, label='Tendon Length')
+    ax.axhline(y=tendon_stats['initial_length'], color='r', linestyle='--', linewidth=2, 
+               label=f"Initial Length = {tendon_stats['initial_length']:.3f} cm")
+    
+    # Set y-axis limits to show the full context (0 to initial_length + margin)
+    y_min = max(0, tendon_stats['initial_length'] - 1.0)
+    y_max = tendon_stats['initial_length'] + 1.0
+    ax.set_ylim(y_min, y_max)
+    
+    ax.set_xlabel('Time [ms]', fontsize=14, fontweight='bold')
+    ax.set_ylabel('Tendon Length [cm]', fontsize=14, fontweight='bold')
+    ax.set_title('Tendon Compliance Analysis (AMI Model, 0-10 ms)', fontsize=16, fontweight='bold')
+    ax.legend(fontsize=12)
+    ax.grid(True, alpha=0.3)
+    
+    # Add annotation for max deviation
+    ax.text(0.98, 0.02, f"Max Deviation: {tendon_stats['max_deviation']:.4f} cm ({tendon_stats['max_deviation_percent']:.2f}%)",
+            transform=ax.transAxes, fontsize=12, fontweight='bold',
+            ha='right', va='bottom',
+            bbox=dict(boxstyle='round', facecolor='white', edgecolor='black', linewidth=2))
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, 'tendon_compliance_analysis.png'), dpi=300, bbox_inches='tight')
+    plt.savefig(os.path.join(output_dir, 'tendon_compliance_analysis.pdf'), bbox_inches='tight')
+    plt.close()
+
 # =============================================================================
 # Report Generation
 # =============================================================================
 
-def generate_summary_report(df_results, df_runtimes, rom_analysis, runtime_stats, df_rom, output_dir):
+def generate_summary_report(df_results, df_runtimes, rom_analysis, runtime_stats, df_rom, tendon_stats, output_dir):
     """Generate comprehensive summary report"""
     
     report = []
@@ -462,31 +535,32 @@ def generate_summary_report(df_results, df_runtimes, rom_analysis, runtime_stats
     report.append(f"Speedup Factor:    {runtime_stats['speedup_factor']:.2f}x")
     report.append("")
     
+    # Tendon Compliance
+    if tendon_stats is not None:
+        report.append("-" * 80)
+        report.append("3. TENDON COMPLIANCE ANALYSIS (AMI MODEL)")
+        report.append("-" * 80)
+        report.append("")
+        report.append(f"Initial Tendon Length:  {tendon_stats['initial_length']:.4f} cm")
+        report.append(f"Maximum Deviation:      {tendon_stats['max_deviation']:.4f} cm")
+        report.append(f"Deviation Percentage:   {tendon_stats['max_deviation_percent']:.2f}%")
+        report.append("")
+    
     # Key Findings for Paper
     report.append("-" * 80)
-    report.append("3. KEY FINDINGS FOR PAPER")
+    key_section = "4. KEY FINDINGS FOR PAPER" if tendon_stats else "3. KEY FINDINGS FOR PAPER"
+    report.append(key_section)
     report.append("-" * 80)
     report.append("")
     report.append(f"✓ ROM Correlation:   R² > {rom_analysis['r_squared']:.4f}")
     report.append(f"✓ Runtime Reduction: {runtime_stats['reduction_percent']:.1f}% "
                  f"({runtime_stats['runtime_8x8_avg_minutes']:.1f} min vs "
                  f"{runtime_stats['runtime_4x4_avg_minutes']:.1f} min)")
+    if tendon_stats:
+        report.append(f"✓ Tendon Compliance: Max deviation {tendon_stats['max_deviation']:.4f} cm "
+                     f"({tendon_stats['max_deviation_percent']:.2f}%)")
     report.append("")
-    report.append("Suggested Text for Paper:")
-    report.append("-" * 40)
-    report.append(f"Analysis of the achieved muscle ROM reveals a high correlation of ROM for both")
-    report.append(f"mesh resolutions (R² > {rom_analysis['r_squared']:.4f}) in single-point comparison of different")
-    report.append(f"prestretches (0N and 31N), confirming that variations in ROM arise purely from")
-    report.append(f"discretization-dependent mechanical response rather than inconsistent geometric")
-    report.append(f"deformation. Regarding the runtime, the reduced mesh resolution results in a")
-    report.append(f"reduction of runtime by {runtime_stats['reduction_percent']:.1f}% "
-                 f"({runtime_stats['runtime_4x4_avg_minutes']:.1f} min vs {runtime_stats['runtime_8x8_avg_minutes']:.1f} min).")
-    report.append(f"Therefore, the single-muscle cuboid model with reduced spatial resolution serves")
-    report.append(f"as a complexity reduced model, that retains similar accuracy in ROM-values and is")
-    report.append(f"thereby used for further algorithmic implementations in Section~\\ref{{sec:bayesian_optimization}}")
-    report.append(f"and~\\ref{{sec:data_augmentation}}.")
-    report.append("")
-    
+   
     report.append("=" * 80)
     
     # Save report
@@ -513,7 +587,7 @@ def save_data_tables(df_results, df_runtimes, df_rom, output_dir):
     df_results.to_csv(os.path.join(output_dir, 'complete_results.csv'), index=False)
     df_results.to_latex(os.path.join(output_dir, 'complete_results.tex'), index=False, float_format="%.6f")
 
-def save_json_results(rom_analysis, runtime_stats, output_dir):
+def save_json_results(rom_analysis, runtime_stats, tendon_stats, output_dir):
     """Save results as JSON for easy integration"""
     
     results_json = {
@@ -536,6 +610,14 @@ def save_json_results(rom_analysis, runtime_stats, output_dir):
             'runtime_comparison': f"{runtime_stats['runtime_4x4_avg_minutes']:.1f} min vs {runtime_stats['runtime_8x8_avg_minutes']:.1f} min"
         }
     }
+    
+    if tendon_stats is not None:
+        results_json['tendon_compliance'] = {
+            'initial_length_cm': float(tendon_stats['initial_length']),
+            'max_deviation_cm': float(tendon_stats['max_deviation']),
+            'max_deviation_percent': float(tendon_stats['max_deviation_percent'])
+        }
+        results_json['suggested_values_for_paper']['tendon_compliance'] = f"{tendon_stats['max_deviation']:.4f} cm"
     
     with open(os.path.join(output_dir, 'analysis_results.json'), 'w') as f:
         json.dump(results_json, f, indent=2)
@@ -560,6 +642,14 @@ def main():
     print(f"✓ Loaded {len(df_results)} muscle length results")
     print(f"✓ Loaded {len(df_runtimes)} runtime results\n")
     
+    # Load tendon data
+    print("Loading tendon compliance data...")
+    df_tendon = load_tendon_positions(AMI_PATH)
+    if df_tendon is not None:
+        print(f"✓ Loaded {len(df_tendon)} tendon position samples\n")
+    else:
+        print("  Warning: No tendon data found\n")
+    
     # Compute ROM data
     print("Computing ROM values...")
     df_rom = compute_rom_values(df_results)
@@ -575,6 +665,13 @@ def main():
     runtime_stats = compute_runtime_reduction(df_runtimes)
     print(f"✓ Runtime Reduction: {runtime_stats['reduction_percent']:.2f}%\n")
     
+    # Analyze tendon compliance
+    tendon_stats = None
+    if df_tendon is not None:
+        print("Analyzing tendon compliance...")
+        tendon_stats = analyze_tendon_compliance(df_tendon)
+        print(f"✓ Max Tendon Deviation: {tendon_stats['max_deviation']:.4f} cm ({tendon_stats['max_deviation_percent']:.2f}%)\n")
+    
     # Generate visualizations
     print("Generating visualizations...")
     plot_rom_correlation(rom_analysis, OUTPUT_DIR)
@@ -587,7 +684,13 @@ def main():
     print("  ✓ Runtime comparison plots")
     
     plot_elongation_comparison(df_rom, OUTPUT_DIR)
-    print("  ✓ Elongation/strain comparison\n")
+    print("  ✓ Elongation/strain comparison")
+    
+    if df_tendon is not None and tendon_stats is not None:
+        plot_tendon_compliance(df_tendon, tendon_stats, OUTPUT_DIR)
+        print("  ✓ Tendon compliance plot")
+    
+    print()
     
     # Save data tables
     print("Saving data tables...")
@@ -596,13 +699,13 @@ def main():
     
     # Save JSON results
     print("Saving JSON results...")
-    json_results = save_json_results(rom_analysis, runtime_stats, OUTPUT_DIR)
+    json_results = save_json_results(rom_analysis, runtime_stats, tendon_stats, OUTPUT_DIR)
     print("  ✓ JSON results saved\n")
     
     # Generate summary report
     print("Generating summary report...")
     report = generate_summary_report(df_results, df_runtimes, rom_analysis, 
-                                     runtime_stats, df_rom, OUTPUT_DIR)
+                                     runtime_stats, df_rom, tendon_stats, OUTPUT_DIR)
     print("\n✓ Summary report saved\n")
     
     print("="*80)
