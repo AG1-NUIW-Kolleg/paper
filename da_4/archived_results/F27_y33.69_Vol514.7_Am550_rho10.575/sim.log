@@ -1,0 +1,1100 @@
+This is opendihu 1.5, built Aug  7 2025, C++ 201402, GCC 12.2.0, current time: 2025/12/6 00:35:11, hostname: cmcs09, n ranks: 1
+Open MPI v4.1.4, package: Debian OpenMPI, ident: 4.1.4, repo rev: v4.1.4, May 26, 2022
+File "../settings_muscle_with_prestretch.py" loaded.
+---------------------------------------- begin python output ----------------------------------------
+ Prestretch force F = 27.0000 N [from command line]
+ ==========================================
+ PRESTRETCH CONFIGURATION:
+   Traction force F     = 27.000000 N
+   Applied to superior surface (Neumann BC)
+   Actual elongation will be measured from output
+ ==========================================
+
+ ==========================================
+ NEUMANN BC SETUP:
+   Number of elements   = 4
+   Top layer index k    = 4
+   Traction vector      = [0, 0, 27.0] N
+   Quadratic mesh (mx, my, mz) = (2, 2, 5)
+   First element BC     = {'element': 16, 'constantVector': [0, 0, 27.0], 'face': '2+'}
+   Last element BC      = {'element': 19, 'constantVector': [0, 0, 27.0], 'face': '2+'}
+ ==========================================
+
+----------------------------------------- end python output -----------------------------------------
+Note, setting regularization to [tol,eps] = [1e-2,1e-1]. Add `"regularization": None` in the settings to disable.
+[33mWarning: [0mconfig["Coupling"]["Term1"]["Coupling"]["Term2"]["MuscleContractionSolver"]["HyperelasticitySolver"]["OutputWriter"][1]["fileNumbering"] not set in "../settings_muscle_with_prestretch.py". Assuming default value "incremental".
+[33mWarning: [0mconfig["Coupling"]["Term1"]["Coupling"]["Term2"]["MuscleContractionSolver"]["HyperelasticitySolver"]["OutputWriter"][1]["onlyNodalValues"] not set in "../settings_muscle_with_prestretch.py". Assuming default value True.
+[33mWarning: [0mconfig["Coupling"]["Term2"]["Coupling"]["Term2"]["MuscleContractionSolver"]["DynamicHyperelasticitySolver"]["timeStepWidth"] not set in "../settings_muscle_with_prestretch.py". Assuming default value 1.
+[33mWarning: [0mconfig["Coupling"]["Term2"]["Coupling"]["Term2"]["MuscleContractionSolver"]["DynamicHyperelasticitySolver"]["OutputWriter"][0]["fileNumbering"] not set in "../settings_muscle_with_prestretch.py". Assuming default value "incremental".
+[33mWarning: [0mconfig["Coupling"]["Term2"]["Coupling"]["Term2"]["MuscleContractionSolver"]["DynamicHyperelasticitySolver"]["OutputWriter"][0]["onlyNodalValues"] not set in "../settings_muscle_with_prestretch.py". Assuming default value True.
+[33mWarning: [0mconfig["Coupling"]["timeStepOutputInterval"] not set in "../settings_muscle_with_prestretch.py". Assuming default value 100.
+[33mWarning: [0mconfig["Coupling"]["timeStepOutputInterval"] not set in "../settings_muscle_with_prestretch.py". Assuming default value 100.
+[33mWarning: [0mconfig["Coupling"]["Term1"]["Coupling"]["timeStepOutputInterval"] not set in "../settings_muscle_with_prestretch.py". Assuming default value 100.
+[33mWarning: [0mconfig["Coupling"]["Term1"]["Coupling"]["timeStepOutputInterval"] not set in "../settings_muscle_with_prestretch.py". Assuming default value 100.
+Initialize 1 global instances (1 local).
+CellML file "src/hodgkin_huxley-razumova.c" with 9 states, 19 algebraics, specified 3 parameters: 
+  parameter 0 maps to "membrane/i_Stim" (ALGEBRAIC[0]), initial value: 0, 
+  parameter 1 maps to "Razumova/l_hs" (CONSTANTS[9]), initial value: 1, 
+  parameter 2 maps to "Razumova/rel_velo" (CONSTANTS[10]), initial value: 0
+
+Compute stiffness matrix for 1D problem with 30 global dofs.
+10%20%31%41%51%62%72%82%93%parallel assembly...done in 0.000115252 s.                       
+done.
+Time of first stimulation: 0, motor unit 50
+[33mWarning: [0mconfig["Coupling"]["Term1"]["Coupling"]["Term2"]["MuscleContractionSolver"]["HyperelasticitySolver"]["fiberMeshNames"] not set in "../settings_muscle_with_prestretch.py". Assuming vector []
+initializing fiber directions...
+done (0 ms)
+Preallocation for matrix "combinedJacobian": diagonal nz: 157300, offdiagonal nz: 157300
+[33mWarning: [0mconfig["Coupling"]["Term1"]["Coupling"]["Term2"]["MuscleContractionSolver"]["HyperelasticitySolver"]["initialValuesDisplacements"]: given vector has only 20 entries, fill with 0's to size 275
+[33mWarning: [0mconfig["Coupling"]["Term2"]["Coupling"]["timeStepOutputInterval"] not set in "../settings_muscle_with_prestretch.py". Assuming default value 100.
+[33mWarning: [0mconfig["Coupling"]["Term2"]["Coupling"]["timeStepOutputInterval"] not set in "../settings_muscle_with_prestretch.py". Assuming default value 100.
+Time of first stimulation: 0, motor unit 50
+[33mWarning: [0mconfig["Coupling"]["Term2"]["Coupling"]["Term2"]["MuscleContractionSolver"]["DynamicHyperelasticitySolver"]["neumannBoundaryConditions"] is not a list!
+initializing fiber directions...
+Preallocation for matrix "combinedJacobian": diagonal nz: 550960, offdiagonal nz: 550960
+Successfully initialized mapping between meshes "fiber6" and "muscleMesh_quadratic", 30/30 source dofs are outside the target mesh. "enableWarnings": False, "xiTolerance": 0.1, total duration of all mappings: 0.00570234 s
+Successfully initialized mapping between meshes "fiber7" and "muscleMesh_quadratic", 30/30 source dofs are outside the target mesh. "enableWarnings": False, "xiTolerance": 0.1, total duration of all mappings: 0.0113725 s
+Successfully initialized mapping between meshes "fiber2" and "muscleMesh_quadratic", 30/30 source dofs are outside the target mesh. "enableWarnings": False, "xiTolerance": 0.1, total duration of all mappings: 0.0165484 s
+Successfully initialized mapping between meshes "fiber5" and "muscleMesh_quadratic", 30/30 source dofs are outside the target mesh. "enableWarnings": False, "xiTolerance": 0.1, total duration of all mappings: 0.0217297 s
+Successfully initialized mapping between meshes "fiber8" and "muscleMesh_quadratic", 30/30 source dofs are outside the target mesh. "enableWarnings": False, "xiTolerance": 0.1, total duration of all mappings: 0.02687 s
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+durationComputeMappingBetweenMeshes: 0.02687
+
+  Nonlinear solver: iteration  0, residual norm       7.125
+  Nonlinear solver: iteration  1, residual norm     2.79002, e_new=e_old^c with c=0.522532
+  Nonlinear solver: iteration  2, residual norm    0.339867, e_new=e_old^c with c=-1.0518
+  Nonlinear solver: iteration  3, residual norm  0.00322254, e_new=e_old^c with c=5.31651
+  Nonlinear solver: iteration  4, residual norm 6.50427e-06, e_new=e_old^c with c=2.08155
+Solution done in 4 iterations, residual norm 6.50427e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+durationComputeMappingBetweenMeshes: 0.02687
+DynamicHyperelasticitySolver, timestep 0/1, t=0
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+durationComputeMappingBetweenMeshes: 0.02687
+DynamicHyperelasticitySolver, timestep 0/1, t=0.1
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.2
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.3
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.4
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.5
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.6
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.7
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.8
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=0.9
+
+  Nonlinear solver: iteration  0, residual norm 4.40988e-14
+Solution done in 0 iterations, residual norm 4.40988e-14: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.0005, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.001, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.0015, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.002, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.0025, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.003, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.0035, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.004, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.0045, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.005, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.0055, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.006, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.0065, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.007, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.0075, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.008, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.0085, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.009, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+t: 1.0095, stimulate fiber 0, MU 50
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1
+
+  Nonlinear solver: iteration  0, residual norm 1.30193e-06
+Solution done in 0 iterations, residual norm 1.30193e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, KSP_CONVERGED_ITERATING: returned if the solver is not yet finished
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.1
+
+  Nonlinear solver: iteration  0, residual norm 1.02929e-05
+  Nonlinear solver: iteration  1, residual norm 5.96828e-11, e_new=e_old^c with c=2.04997
+Solution done in 1 iterations, residual norm 5.96828e-11: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.2
+
+  Nonlinear solver: iteration  0, residual norm 2.21785e-05
+  Nonlinear solver: iteration  1, residual norm 3.04844e-10, e_new=e_old^c with c=2.04465
+Solution done in 1 iterations, residual norm 3.04844e-10: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.3
+
+  Nonlinear solver: iteration  0, residual norm 3.95153e-05
+  Nonlinear solver: iteration  1, residual norm  7.3092e-10, e_new=e_old^c with c=2.07487
+Solution done in 1 iterations, residual norm 7.3092e-10: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.4
+
+  Nonlinear solver: iteration  0, residual norm 5.95884e-05
+  Nonlinear solver: iteration  1, residual norm 1.11291e-09, e_new=e_old^c with c=2.11926
+Solution done in 1 iterations, residual norm 1.11291e-09: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.5
+
+  Nonlinear solver: iteration  0, residual norm 8.14811e-05
+  Nonlinear solver: iteration  1, residual norm  1.6736e-09, e_new=e_old^c with c=2.14636
+Solution done in 1 iterations, residual norm 1.6736e-09: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.6
+
+  Nonlinear solver: iteration  0, residual norm 0.000104816
+  Nonlinear solver: iteration  1, residual norm 3.47002e-09, e_new=e_old^c with c=2.12577
+Solution done in 1 iterations, residual norm 3.47002e-09: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.7
+
+  Nonlinear solver: iteration  0, residual norm 0.000129662
+  Nonlinear solver: iteration  1, residual norm  3.5479e-09, e_new=e_old^c with c=2.17382
+Solution done in 1 iterations, residual norm 3.5479e-09: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.8
+
+  Nonlinear solver: iteration  0, residual norm  0.00015639
+  Nonlinear solver: iteration  1, residual norm 7.59217e-09, e_new=e_old^c with c=2.13349
+Solution done in 1 iterations, residual norm 7.59217e-09: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=1.9
+
+  Nonlinear solver: iteration  0, residual norm 0.000185534
+  Nonlinear solver: iteration  1, residual norm 8.80978e-09, e_new=e_old^c with c=2.15861
+Solution done in 1 iterations, residual norm 8.80978e-09: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2
+
+  Nonlinear solver: iteration  0, residual norm 0.000217659
+  Nonlinear solver: iteration  1, residual norm 9.93777e-09, e_new=e_old^c with c=2.18521
+Solution done in 1 iterations, residual norm 9.93777e-09: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.1
+
+  Nonlinear solver: iteration  0, residual norm 0.000253256
+  Nonlinear solver: iteration  1, residual norm 1.35596e-08, e_new=e_old^c with c=2.18765
+Solution done in 1 iterations, residual norm 1.35596e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.2
+
+  Nonlinear solver: iteration  0, residual norm 0.000292674
+  Nonlinear solver: iteration  1, residual norm 1.65988e-08, e_new=e_old^c with c=2.20169
+Solution done in 1 iterations, residual norm 1.65988e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.3
+
+  Nonlinear solver: iteration  0, residual norm 0.000336235
+  Nonlinear solver: iteration  1, residual norm 1.93015e-08, e_new=e_old^c with c=2.22102
+Solution done in 1 iterations, residual norm 1.93015e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.4
+
+  Nonlinear solver: iteration  0, residual norm 0.000385506
+  Nonlinear solver: iteration  1, residual norm 2.98332e-08, e_new=e_old^c with c=2.20427
+Solution done in 1 iterations, residual norm 2.98332e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.5
+
+  Nonlinear solver: iteration  0, residual norm 0.000441111
+  Nonlinear solver: iteration  1, residual norm 3.63696e-08, e_new=e_old^c with c=2.21707
+Solution done in 1 iterations, residual norm 3.63696e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.6
+
+  Nonlinear solver: iteration  0, residual norm 0.000502628
+  Nonlinear solver: iteration  1, residual norm 3.52777e-08, e_new=e_old^c with c=2.25919
+Solution done in 1 iterations, residual norm 3.52777e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.7
+
+  Nonlinear solver: iteration  0, residual norm 0.000569773
+  Nonlinear solver: iteration  1, residual norm 4.50324e-08, e_new=e_old^c with c=2.26443
+Solution done in 1 iterations, residual norm 4.50324e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.8
+
+  Nonlinear solver: iteration  0, residual norm 0.000642451
+  Nonlinear solver: iteration  1, residual norm 5.76697e-08, e_new=e_old^c with c=2.26776
+Solution done in 1 iterations, residual norm 5.76697e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=2.9
+
+  Nonlinear solver: iteration  0, residual norm 0.000720723
+  Nonlinear solver: iteration  1, residual norm 7.77365e-08, e_new=e_old^c with c=2.26252
+Solution done in 1 iterations, residual norm 7.77365e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3
+
+  Nonlinear solver: iteration  0, residual norm 0.000804749
+  Nonlinear solver: iteration  1, residual norm 9.45087e-08, e_new=e_old^c with c=2.27012
+Solution done in 1 iterations, residual norm 9.45087e-08: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.1
+
+  Nonlinear solver: iteration  0, residual norm 0.000894709
+  Nonlinear solver: iteration  1, residual norm 6.55018e-07, e_new=e_old^c with c=2.02858
+Solution done in 1 iterations, residual norm 6.55018e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.2
+
+  Nonlinear solver: iteration  0, residual norm 0.000990785
+  Nonlinear solver: iteration  1, residual norm 1.83144e-07, e_new=e_old^c with c=2.24273
+Solution done in 1 iterations, residual norm 1.83144e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.3
+
+  Nonlinear solver: iteration  0, residual norm  0.00109303
+  Nonlinear solver: iteration  1, residual norm 1.70209e-06, e_new=e_old^c with c=1.94809
+Solution done in 1 iterations, residual norm 1.70209e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.4
+
+  Nonlinear solver: iteration  0, residual norm  0.00120157
+  Nonlinear solver: iteration  1, residual norm 1.74414e-07, e_new=e_old^c with c=2.31433
+Solution done in 1 iterations, residual norm 1.74414e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.5
+
+  Nonlinear solver: iteration  0, residual norm  0.00131628
+  Nonlinear solver: iteration  1, residual norm 2.25327e-07, e_new=e_old^c with c=2.30753
+Solution done in 1 iterations, residual norm 2.25327e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.6
+
+  Nonlinear solver: iteration  0, residual norm  0.00143706
+  Nonlinear solver: iteration  1, residual norm 2.48655e-07, e_new=e_old^c with c=2.32343
+Solution done in 1 iterations, residual norm 2.48655e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.7
+
+  Nonlinear solver: iteration  0, residual norm  0.00156368
+  Nonlinear solver: iteration  1, residual norm 2.67969e-07, e_new=e_old^c with c=2.34222
+Solution done in 1 iterations, residual norm 2.67969e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.8
+
+  Nonlinear solver: iteration  0, residual norm  0.00169586
+  Nonlinear solver: iteration  1, residual norm 2.98082e-07, e_new=e_old^c with c=2.35532
+Solution done in 1 iterations, residual norm 2.98082e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=3.9
+
+  Nonlinear solver: iteration  0, residual norm  0.00183328
+  Nonlinear solver: iteration  1, residual norm 3.44217e-07, e_new=e_old^c with c=2.3616
+Solution done in 1 iterations, residual norm 3.44217e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4
+
+  Nonlinear solver: iteration  0, residual norm  0.00197555
+  Nonlinear solver: iteration  1, residual norm 3.86517e-07, e_new=e_old^c with c=2.37134
+Solution done in 1 iterations, residual norm 3.86517e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.1
+
+  Nonlinear solver: iteration  0, residual norm  0.00212232
+  Nonlinear solver: iteration  1, residual norm 6.37616e-07, e_new=e_old^c with c=2.31762
+Solution done in 1 iterations, residual norm 6.37616e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.2
+
+  Nonlinear solver: iteration  0, residual norm  0.00227385
+  Nonlinear solver: iteration  1, residual norm  4.7376e-07, e_new=e_old^c with c=2.39269
+Solution done in 1 iterations, residual norm 4.7376e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.3
+
+  Nonlinear solver: iteration  0, residual norm   0.0024303
+  Nonlinear solver: iteration  1, residual norm 5.19749e-07, e_new=e_old^c with c=2.40374
+Solution done in 1 iterations, residual norm 5.19749e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.4
+
+  Nonlinear solver: iteration  0, residual norm  0.00259134
+  Nonlinear solver: iteration  1, residual norm 5.66242e-07, e_new=e_old^c with c=2.41526
+Solution done in 1 iterations, residual norm 5.66242e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.5
+
+  Nonlinear solver: iteration  0, residual norm  0.00275668
+  Nonlinear solver: iteration  1, residual norm 6.21077e-07, e_new=e_old^c with c=2.42492
+Solution done in 1 iterations, residual norm 6.21077e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.6
+
+  Nonlinear solver: iteration  0, residual norm  0.00292558
+  Nonlinear solver: iteration  1, residual norm 6.97462e-07, e_new=e_old^c with c=2.42975
+Solution done in 1 iterations, residual norm 6.97462e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.7
+
+  Nonlinear solver: iteration  0, residual norm  0.00309711
+  Nonlinear solver: iteration  1, residual norm 7.50342e-07, e_new=e_old^c with c=2.44107
+Solution done in 1 iterations, residual norm 7.50342e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.8
+
+  Nonlinear solver: iteration  0, residual norm  0.00327087
+  Nonlinear solver: iteration  1, residual norm 1.69539e-05, e_new=e_old^c with c=1.91955
+  Nonlinear solver: iteration  2, residual norm 1.61936e-07, e_new=e_old^c with c=1.4234
+Solution done in 2 iterations, residual norm 1.61936e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=4.9
+
+  Nonlinear solver: iteration  0, residual norm  0.00344647
+  Nonlinear solver: iteration  1, residual norm 1.14851e-06, e_new=e_old^c with c=2.412
+Solution done in 1 iterations, residual norm 1.14851e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5
+
+  Nonlinear solver: iteration  0, residual norm  0.00362364
+  Nonlinear solver: iteration  1, residual norm  9.5477e-07, e_new=e_old^c with c=2.46639
+Solution done in 1 iterations, residual norm 9.5477e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.1
+
+  Nonlinear solver: iteration  0, residual norm  0.00380181
+  Nonlinear solver: iteration  1, residual norm 1.02137e-06, e_new=e_old^c with c=2.47553
+Solution done in 1 iterations, residual norm 1.02137e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.2
+
+  Nonlinear solver: iteration  0, residual norm  0.00398042
+  Nonlinear solver: iteration  1, residual norm 2.07675e-06, e_new=e_old^c with c=2.36769
+Solution done in 1 iterations, residual norm 2.07675e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.3
+
+  Nonlinear solver: iteration  0, residual norm   0.0041589
+  Nonlinear solver: iteration  1, residual norm 1.14167e-06, e_new=e_old^c with c=2.49576
+Solution done in 1 iterations, residual norm 1.14167e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.4
+
+  Nonlinear solver: iteration  0, residual norm  0.00433663
+  Nonlinear solver: iteration  1, residual norm 1.20645e-06, e_new=e_old^c with c=2.50481
+Solution done in 1 iterations, residual norm 1.20645e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.5
+
+  Nonlinear solver: iteration  0, residual norm  0.00451304
+  Nonlinear solver: iteration  1, residual norm 1.26796e-06, e_new=e_old^c with c=2.5141
+Solution done in 1 iterations, residual norm 1.26796e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.6
+
+  Nonlinear solver: iteration  0, residual norm  0.00468761
+  Nonlinear solver: iteration  1, residual norm 1.32491e-06, e_new=e_old^c with c=2.5237
+Solution done in 1 iterations, residual norm 1.32491e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.7
+
+  Nonlinear solver: iteration  0, residual norm   0.0048599
+  Nonlinear solver: iteration  1, residual norm 1.38128e-06, e_new=e_old^c with c=2.53298
+Solution done in 1 iterations, residual norm 1.38128e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.8
+
+  Nonlinear solver: iteration  0, residual norm  0.00502958
+  Nonlinear solver: iteration  1, residual norm  1.4443e-06, e_new=e_old^c with c=2.54097
+Solution done in 1 iterations, residual norm 1.4443e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=5.9
+
+  Nonlinear solver: iteration  0, residual norm  0.00519646
+  Nonlinear solver: iteration  1, residual norm 1.49579e-06, e_new=e_old^c with c=2.55008
+Solution done in 1 iterations, residual norm 1.49579e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6
+
+  Nonlinear solver: iteration  0, residual norm  0.00536072
+  Nonlinear solver: iteration  1, residual norm  1.5509e-06, e_new=e_old^c with c=2.55834
+Solution done in 1 iterations, residual norm 1.5509e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.1
+
+  Nonlinear solver: iteration  0, residual norm  0.00552273
+  Nonlinear solver: iteration  1, residual norm 1.59372e-06, e_new=e_old^c with c=2.56775
+Solution done in 1 iterations, residual norm 1.59372e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.2
+
+  Nonlinear solver: iteration  0, residual norm   0.0056823
+  Nonlinear solver: iteration  1, residual norm 1.76531e-06, e_new=e_old^c with c=2.56212
+Solution done in 1 iterations, residual norm 1.76531e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.3
+
+  Nonlinear solver: iteration  0, residual norm  0.00583927
+  Nonlinear solver: iteration  1, residual norm 1.68329e-06, e_new=e_old^c with c=2.58494
+Solution done in 1 iterations, residual norm 1.68329e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.4
+
+  Nonlinear solver: iteration  0, residual norm  0.00599369
+  Nonlinear solver: iteration  1, residual norm 1.73728e-06, e_new=e_old^c with c=2.59196
+Solution done in 1 iterations, residual norm 1.73728e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.5
+
+  Nonlinear solver: iteration  0, residual norm   0.0061457
+  Nonlinear solver: iteration  1, residual norm 1.79126e-06, e_new=e_old^c with c=2.5987
+Solution done in 1 iterations, residual norm 1.79126e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.6
+
+  Nonlinear solver: iteration  0, residual norm  0.00629543
+  Nonlinear solver: iteration  1, residual norm 1.83585e-06, e_new=e_old^c with c=2.60619
+Solution done in 1 iterations, residual norm 1.83585e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.7
+
+  Nonlinear solver: iteration  0, residual norm  0.00644301
+  Nonlinear solver: iteration  1, residual norm 1.88094e-06, e_new=e_old^c with c=2.61335
+Solution done in 1 iterations, residual norm 1.88094e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.8
+
+  Nonlinear solver: iteration  0, residual norm  0.00658854
+  Nonlinear solver: iteration  1, residual norm 1.94331e-06, e_new=e_old^c with c=2.61848
+Solution done in 1 iterations, residual norm 1.94331e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=6.9
+
+  Nonlinear solver: iteration  0, residual norm  0.00673213
+  Nonlinear solver: iteration  1, residual norm 1.98296e-06, e_new=e_old^c with c=2.62573
+Solution done in 1 iterations, residual norm 1.98296e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7
+
+  Nonlinear solver: iteration  0, residual norm  0.00687384
+  Nonlinear solver: iteration  1, residual norm 2.03168e-06, e_new=e_old^c with c=2.63184
+Solution done in 1 iterations, residual norm 2.03168e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.1
+
+  Nonlinear solver: iteration  0, residual norm   0.0070138
+  Nonlinear solver: iteration  1, residual norm 2.08271e-06, e_new=e_old^c with c=2.63753
+Solution done in 1 iterations, residual norm 2.08271e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.2
+
+  Nonlinear solver: iteration  0, residual norm  0.00715214
+  Nonlinear solver: iteration  1, residual norm 2.12909e-06, e_new=e_old^c with c=2.6435
+Solution done in 1 iterations, residual norm 2.12909e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.3
+
+  Nonlinear solver: iteration  0, residual norm  0.00728902
+  Nonlinear solver: iteration  1, residual norm 2.17061e-06, e_new=e_old^c with c=2.64976
+Solution done in 1 iterations, residual norm 2.17061e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.4
+
+  Nonlinear solver: iteration  0, residual norm  0.00742467
+  Nonlinear solver: iteration  1, residual norm 2.21625e-06, e_new=e_old^c with c=2.65548
+Solution done in 1 iterations, residual norm 2.21625e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.5
+
+  Nonlinear solver: iteration  0, residual norm  0.00755939
+  Nonlinear solver: iteration  1, residual norm 2.26067e-06, e_new=e_old^c with c=2.6612
+Solution done in 1 iterations, residual norm 2.26067e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.6
+
+  Nonlinear solver: iteration  0, residual norm   0.0076935
+  Nonlinear solver: iteration  1, residual norm 2.31123e-06, e_new=e_old^c with c=2.66627
+Solution done in 1 iterations, residual norm 2.31123e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.7
+
+  Nonlinear solver: iteration  0, residual norm  0.00782737
+  Nonlinear solver: iteration  1, residual norm 2.35117e-06, e_new=e_old^c with c=2.67222
+Solution done in 1 iterations, residual norm 2.35117e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.8
+
+  Nonlinear solver: iteration  0, residual norm  0.00796171
+  Nonlinear solver: iteration  1, residual norm 2.40543e-06, e_new=e_old^c with c=2.67691
+Solution done in 1 iterations, residual norm 2.40543e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=7.9
+
+  Nonlinear solver: iteration  0, residual norm   0.0080971
+  Nonlinear solver: iteration  1, residual norm 2.47252e-06, e_new=e_old^c with c=2.68057
+Solution done in 1 iterations, residual norm 2.47252e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8
+
+  Nonlinear solver: iteration  0, residual norm  0.00823384
+  Nonlinear solver: iteration  1, residual norm 2.55642e-06, e_new=e_old^c with c=2.68297
+Solution done in 1 iterations, residual norm 2.55642e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.1
+
+  Nonlinear solver: iteration  0, residual norm  0.00837203
+  Nonlinear solver: iteration  1, residual norm 2.64924e-06, e_new=e_old^c with c=2.68485
+Solution done in 1 iterations, residual norm 2.64924e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.2
+
+  Nonlinear solver: iteration  0, residual norm  0.00851198
+  Nonlinear solver: iteration  1, residual norm  2.7587e-06, e_new=e_old^c with c=2.68569
+Solution done in 1 iterations, residual norm 2.7587e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.3
+
+  Nonlinear solver: iteration  0, residual norm  0.00865399
+  Nonlinear solver: iteration  1, residual norm 2.86858e-06, e_new=e_old^c with c=2.68682
+Solution done in 1 iterations, residual norm 2.86858e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.4
+
+  Nonlinear solver: iteration  0, residual norm  0.00879829
+  Nonlinear solver: iteration  1, residual norm 2.95947e-06, e_new=e_old^c with c=2.68962
+Solution done in 1 iterations, residual norm 2.95947e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.5
+
+  Nonlinear solver: iteration  0, residual norm  0.00894507
+  Nonlinear solver: iteration  1, residual norm 3.05243e-06, e_new=e_old^c with c=2.6925
+Solution done in 1 iterations, residual norm 3.05243e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.6
+
+  Nonlinear solver: iteration  0, residual norm  0.00909441
+  Nonlinear solver: iteration  1, residual norm 3.14927e-06, e_new=e_old^c with c=2.69534
+Solution done in 1 iterations, residual norm 3.14927e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.7
+
+  Nonlinear solver: iteration  0, residual norm  0.00924634
+  Nonlinear solver: iteration  1, residual norm 3.22836e-06, e_new=e_old^c with c=2.69958
+Solution done in 1 iterations, residual norm 3.22836e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.8
+
+  Nonlinear solver: iteration  0, residual norm  0.00940081
+  Nonlinear solver: iteration  1, residual norm 3.29709e-06, e_new=e_old^c with c=2.70465
+Solution done in 1 iterations, residual norm 3.29709e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=8.9
+
+  Nonlinear solver: iteration  0, residual norm  0.00955776
+  Nonlinear solver: iteration  1, residual norm 3.35329e-06, e_new=e_old^c with c=2.71064
+Solution done in 1 iterations, residual norm 3.35329e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9
+
+  Nonlinear solver: iteration  0, residual norm  0.00971712
+  Nonlinear solver: iteration  1, residual norm 3.41096e-06, e_new=e_old^c with c=2.71663
+Solution done in 1 iterations, residual norm 3.41096e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.1
+
+  Nonlinear solver: iteration  0, residual norm   0.0098788
+  Nonlinear solver: iteration  1, residual norm 3.45541e-06, e_new=e_old^c with c=2.72354
+Solution done in 1 iterations, residual norm 3.45541e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.2
+
+  Nonlinear solver: iteration  0, residual norm   0.0100427
+  Nonlinear solver: iteration  1, residual norm 3.50248e-06, e_new=e_old^c with c=2.73034
+Solution done in 1 iterations, residual norm 3.50248e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.3
+
+  Nonlinear solver: iteration  0, residual norm   0.0102088
+  Nonlinear solver: iteration  1, residual norm 3.53018e-06, e_new=e_old^c with c=2.73839
+Solution done in 1 iterations, residual norm 3.53018e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.4
+
+  Nonlinear solver: iteration  0, residual norm   0.0103769
+  Nonlinear solver: iteration  1, residual norm  3.6252e-06, e_new=e_old^c with c=2.74237
+Solution done in 1 iterations, residual norm 3.6252e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.5
+
+  Nonlinear solver: iteration  0, residual norm    0.010547
+  Nonlinear solver: iteration  1, residual norm 3.57872e-06, e_new=e_old^c with c=2.755
+Solution done in 1 iterations, residual norm 3.57872e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.6
+
+  Nonlinear solver: iteration  0, residual norm    0.010719
+  Nonlinear solver: iteration  1, residual norm 3.60608e-06, e_new=e_old^c with c=2.76314
+Solution done in 1 iterations, residual norm 3.60608e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.7
+
+  Nonlinear solver: iteration  0, residual norm   0.0108926
+  Nonlinear solver: iteration  1, residual norm 3.64506e-06, e_new=e_old^c with c=2.77058
+Solution done in 1 iterations, residual norm 3.64506e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.8
+
+  Nonlinear solver: iteration  0, residual norm   0.0110676
+  Nonlinear solver: iteration  1, residual norm 3.70465e-06, e_new=e_old^c with c=2.77679
+Solution done in 1 iterations, residual norm 3.70465e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=9.9
+
+  Nonlinear solver: iteration  0, residual norm   0.0112436
+  Nonlinear solver: iteration  1, residual norm 3.76892e-06, e_new=e_old^c with c=2.78272
+Solution done in 1 iterations, residual norm 3.76892e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+Coupling, timestep 100/1000, t=10
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10
+
+  Nonlinear solver: iteration  0, residual norm   0.0114202
+  Nonlinear solver: iteration  1, residual norm 3.85511e-06, e_new=e_old^c with c=2.78736
+Solution done in 1 iterations, residual norm 3.85511e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.1
+
+  Nonlinear solver: iteration  0, residual norm   0.0115973
+  Nonlinear solver: iteration  1, residual norm 3.96318e-06, e_new=e_old^c with c=2.79078
+Solution done in 1 iterations, residual norm 3.96318e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.2
+
+  Nonlinear solver: iteration  0, residual norm   0.0117744
+  Nonlinear solver: iteration  1, residual norm  4.0917e-06, e_new=e_old^c with c=2.79312
+Solution done in 1 iterations, residual norm 4.0917e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.3
+
+  Nonlinear solver: iteration  0, residual norm   0.0119513
+  Nonlinear solver: iteration  1, residual norm 4.23838e-06, e_new=e_old^c with c=2.79457
+Solution done in 1 iterations, residual norm 4.23838e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.4
+
+  Nonlinear solver: iteration  0, residual norm   0.0121276
+  Nonlinear solver: iteration  1, residual norm 4.40189e-06, e_new=e_old^c with c=2.79527
+Solution done in 1 iterations, residual norm 4.40189e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.5
+
+  Nonlinear solver: iteration  0, residual norm   0.0123029
+  Nonlinear solver: iteration  1, residual norm 4.57135e-06, e_new=e_old^c with c=2.7958
+Solution done in 1 iterations, residual norm 4.57135e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.6
+
+  Nonlinear solver: iteration  0, residual norm   0.0124768
+  Nonlinear solver: iteration  1, residual norm 4.75695e-06, e_new=e_old^c with c=2.79567
+Solution done in 1 iterations, residual norm 4.75695e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.7
+
+  Nonlinear solver: iteration  0, residual norm   0.0126491
+  Nonlinear solver: iteration  1, residual norm 4.94948e-06, e_new=e_old^c with c=2.79537
+Solution done in 1 iterations, residual norm 4.94948e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.8
+
+  Nonlinear solver: iteration  0, residual norm   0.0128194
+  Nonlinear solver: iteration  1, residual norm 5.15892e-06, e_new=e_old^c with c=2.79444
+Solution done in 1 iterations, residual norm 5.15892e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=10.9
+
+  Nonlinear solver: iteration  0, residual norm   0.0129877
+  Nonlinear solver: iteration  1, residual norm 5.40214e-06, e_new=e_old^c with c=2.79222
+Solution done in 1 iterations, residual norm 5.40214e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11
+
+  Nonlinear solver: iteration  0, residual norm   0.0131537
+  Nonlinear solver: iteration  1, residual norm 5.60966e-06, e_new=e_old^c with c=2.79171
+Solution done in 1 iterations, residual norm 5.60966e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.1
+
+  Nonlinear solver: iteration  0, residual norm   0.0133173
+  Nonlinear solver: iteration  1, residual norm 5.85454e-06, e_new=e_old^c with c=2.7898
+Solution done in 1 iterations, residual norm 5.85454e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.2
+
+  Nonlinear solver: iteration  0, residual norm   0.0134784
+  Nonlinear solver: iteration  1, residual norm 6.12249e-06, e_new=e_old^c with c=2.7872
+Solution done in 1 iterations, residual norm 6.12249e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.3
+
+  Nonlinear solver: iteration  0, residual norm   0.0136367
+  Nonlinear solver: iteration  1, residual norm 7.49292e-06, e_new=e_old^c with c=2.74775
+Solution done in 1 iterations, residual norm 7.49292e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.4
+
+  Nonlinear solver: iteration  0, residual norm    0.013792
+  Nonlinear solver: iteration  1, residual norm 6.69358e-06, e_new=e_old^c with c=2.78135
+Solution done in 1 iterations, residual norm 6.69358e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.5
+
+  Nonlinear solver: iteration  0, residual norm   0.0139442
+  Nonlinear solver: iteration  1, residual norm 6.99784e-06, e_new=e_old^c with c=2.77809
+Solution done in 1 iterations, residual norm 6.99784e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.6
+
+  Nonlinear solver: iteration  0, residual norm   0.0140929
+  Nonlinear solver: iteration  1, residual norm 7.31101e-06, e_new=e_old^c with c=2.77473
+Solution done in 1 iterations, residual norm 7.31101e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.7
+
+  Nonlinear solver: iteration  0, residual norm    0.014238
+  Nonlinear solver: iteration  1, residual norm  7.6367e-06, e_new=e_old^c with c=2.77116
+Solution done in 1 iterations, residual norm 7.6367e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.8
+
+  Nonlinear solver: iteration  0, residual norm   0.0143792
+  Nonlinear solver: iteration  1, residual norm 7.97534e-06, e_new=e_old^c with c=2.76738
+Solution done in 1 iterations, residual norm 7.97534e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=11.9
+
+  Nonlinear solver: iteration  0, residual norm   0.0145166
+  Nonlinear solver: iteration  1, residual norm 8.30442e-06, e_new=e_old^c with c=2.76405
+Solution done in 1 iterations, residual norm 8.30442e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12
+
+  Nonlinear solver: iteration  0, residual norm   0.0146498
+  Nonlinear solver: iteration  1, residual norm 8.60907e-06, e_new=e_old^c with c=2.7615
+Solution done in 1 iterations, residual norm 8.60907e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.1
+
+  Nonlinear solver: iteration  0, residual norm   0.0147789
+  Nonlinear solver: iteration  1, residual norm 8.88122e-06, e_new=e_old^c with c=2.75986
+Solution done in 1 iterations, residual norm 8.88122e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.2
+
+  Nonlinear solver: iteration  0, residual norm   0.0149037
+  Nonlinear solver: iteration  1, residual norm 9.10682e-06, e_new=e_old^c with c=2.75941
+Solution done in 1 iterations, residual norm 9.10682e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.3
+
+  Nonlinear solver: iteration  0, residual norm   0.0150241
+  Nonlinear solver: iteration  1, residual norm 9.29104e-06, e_new=e_old^c with c=2.75993
+Solution done in 1 iterations, residual norm 9.29104e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.4
+
+  Nonlinear solver: iteration  0, residual norm   0.0151402
+  Nonlinear solver: iteration  1, residual norm 9.43633e-06, e_new=e_old^c with c=2.7613
+Solution done in 1 iterations, residual norm 9.43633e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.5
+
+  Nonlinear solver: iteration  0, residual norm    0.015252
+  Nonlinear solver: iteration  1, residual norm 9.55574e-06, e_new=e_old^c with c=2.76315
+Solution done in 1 iterations, residual norm 9.55574e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.6
+
+  Nonlinear solver: iteration  0, residual norm   0.0153597
+  Nonlinear solver: iteration  1, residual norm 9.64864e-06, e_new=e_old^c with c=2.76548
+Solution done in 1 iterations, residual norm 9.64864e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.7
+
+  Nonlinear solver: iteration  0, residual norm   0.0154633
+  Nonlinear solver: iteration  1, residual norm 9.73292e-06, e_new=e_old^c with c=2.76786
+Solution done in 1 iterations, residual norm 9.73292e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.8
+
+  Nonlinear solver: iteration  0, residual norm   0.0155631
+  Nonlinear solver: iteration  1, residual norm  9.8124e-06, e_new=e_old^c with c=2.77018
+Solution done in 1 iterations, residual norm 9.8124e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=12.9
+
+  Nonlinear solver: iteration  0, residual norm   0.0156592
+  Nonlinear solver: iteration  1, residual norm 9.88855e-06, e_new=e_old^c with c=2.77242
+Solution done in 1 iterations, residual norm 9.88855e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13
+
+  Nonlinear solver: iteration  0, residual norm   0.0157518
+  Nonlinear solver: iteration  1, residual norm 9.96386e-06, e_new=e_old^c with c=2.77454
+Solution done in 1 iterations, residual norm 9.96386e-06: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.1
+
+  Nonlinear solver: iteration  0, residual norm    0.015841
+  Nonlinear solver: iteration  1, residual norm 1.00385e-05, e_new=e_old^c with c=2.77651
+  Nonlinear solver: iteration  2, residual norm  4.1893e-07, e_new=e_old^c with c=1.276
+Solution done in 2 iterations, residual norm 4.1893e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.2
+
+  Nonlinear solver: iteration  0, residual norm   0.0159268
+  Nonlinear solver: iteration  1, residual norm 1.02889e-05, e_new=e_old^c with c=2.77419
+  Nonlinear solver: iteration  2, residual norm 4.21794e-07, e_new=e_old^c with c=1.27814
+Solution done in 2 iterations, residual norm 4.21794e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.3
+
+  Nonlinear solver: iteration  0, residual norm    0.016009
+  Nonlinear solver: iteration  1, residual norm 1.03899e-05, e_new=e_old^c with c=2.77528
+  Nonlinear solver: iteration  2, residual norm 4.20844e-07, e_new=e_old^c with c=1.27943
+Solution done in 2 iterations, residual norm 4.20844e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.4
+
+  Nonlinear solver: iteration  0, residual norm   0.0160878
+  Nonlinear solver: iteration  1, residual norm 1.04995e-05, e_new=e_old^c with c=2.77604
+  Nonlinear solver: iteration  2, residual norm 4.18421e-07, e_new=e_old^c with c=1.2811
+Solution done in 2 iterations, residual norm 4.18421e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.5
+
+  Nonlinear solver: iteration  0, residual norm   0.0161634
+  Nonlinear solver: iteration  1, residual norm 1.06081e-05, e_new=e_old^c with c=2.7767
+  Nonlinear solver: iteration  2, residual norm 4.16963e-07, e_new=e_old^c with c=1.28256
+Solution done in 2 iterations, residual norm 4.16963e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.6
+
+  Nonlinear solver: iteration  0, residual norm   0.0162357
+  Nonlinear solver: iteration  1, residual norm 1.06994e-05, e_new=e_old^c with c=2.77763
+  Nonlinear solver: iteration  2, residual norm 4.17013e-07, e_new=e_old^c with c=1.28351
+Solution done in 2 iterations, residual norm 4.17013e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.7
+
+  Nonlinear solver: iteration  0, residual norm    0.016305
+  Nonlinear solver: iteration  1, residual norm 1.07693e-05, e_new=e_old^c with c=2.77892
+  Nonlinear solver: iteration  2, residual norm 4.18449e-07, e_new=e_old^c with c=1.28394
+Solution done in 2 iterations, residual norm 4.18449e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.8
+
+  Nonlinear solver: iteration  0, residual norm   0.0163714
+  Nonlinear solver: iteration  1, residual norm  1.0823e-05, e_new=e_old^c with c=2.78045
+  Nonlinear solver: iteration  2, residual norm 4.20824e-07, e_new=e_old^c with c=1.284
+Solution done in 2 iterations, residual norm 4.20824e-07: [32mSNES_CONVERGED_FNORM_ABS[0m: ||F|| < atol, [32mKSP_CONVERGED_ITS[0m: used by the preonly preconditioner that always uses ONE iteration, or when the KSPConvergedSkip() convergence test routine is set.
+initializeMappingBetweenMeshes, meshNamesOfGeometryToMapTo_=[]
+DynamicHyperelasticitySolver, timestep 0/1, t=13.9
+
+  Nonlinear solver: iteration  0, residual norm   0.0164348
+Total user time: 1:17.49 min
+Wrote 9 stimulation times to file "out/defaultstimulation.log".
+File "solver_structure.txt" written.
+File "mappings_between_meshes_log.txt" written.
+Rank 0 received signal Interrupt (2): Interrupt
+--------------------------------------------------------------------------
+MPI_ABORT was invoked on rank 0 in communicator MPI_COMM_WORLD
+with errorcode 0.
+
+NOTE: invoking MPI_ABORT causes Open MPI to kill all MPI processes.
+You may or may not see output from other processes, depending on
+exactly when Open MPI kills them.
+--------------------------------------------------------------------------

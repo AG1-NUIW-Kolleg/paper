@@ -1,0 +1,16 @@
+Parameters:
+-----------
+Force: 24 N
+muscle_extent: [3.472182, 3.472182, 34.97] cm
+Volume: 421.6 cm³
+Am: 500 cm⁻¹
+Rho: 10.493 [1e-4 kg/cm³]
+
+Results:
+--------
+Initial Length: 34.97 cm
+Final Length: 44.9249410287091 cm
+Elongation: 9.9549410287091 cm
+Strain: .284670
+
+Completed: Mi 3. Dez 08:03:53 CET 2025
