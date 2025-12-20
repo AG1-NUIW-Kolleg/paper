@@ -180,7 +180,11 @@ def write_prestretch_length_to_file(result):
     f.close()
 
 
+# Global list to store all muscle lengths during simulation
+_muscle_lengths = []
+
 def write_contraction_length_to_file(raw_data):
+  global _muscle_lengths
   t = raw_data[0]["currentTime"]
   if True:
     number_of_nodes = nx * ny
@@ -198,6 +202,9 @@ def write_contraction_length_to_file(raw_data):
 
     length_of_muscle = np.abs(average_z_end - average_z_start)
     print("length of muscle (contraction): ", length_of_muscle)
+    
+    # Store length for ROM calculation
+    _muscle_lengths.append(length_of_muscle)
 
     if t == variables.dt_3D:
       f = open("muscle_length_contraction.csv", "w")
@@ -209,6 +216,23 @@ def write_contraction_length_to_file(raw_data):
       f.write(str(length_of_muscle))
       f.write(",")
       f.close()
+    
+    # Calculate and save ROM when simulation ends
+    if t >= variables.end_time - variables.dt_3D * 0.5:
+      if len(_muscle_lengths) > 0:
+        z_max = max(_muscle_lengths)
+        z_min = min(_muscle_lengths)
+        rom = z_max - z_min
+        print(f"\n=== Range of Motion Calculation ===")
+        print(f"z_max (maximum muscle length): {z_max:.8f} cm")
+        print(f"z_min (minimum muscle length): {z_min:.8f} cm")
+        print(f"ROM (z_max - z_min): {rom:.8f} cm")
+        print(f"===================================\n")
+        
+        with open("range_of_motion.txt", "w") as f:
+          f.write(f"z_max: {z_max}\n")
+          f.write(f"z_min: {z_min}\n")
+          f.write(f"ROM: {rom}\n")
 
 
 config = {

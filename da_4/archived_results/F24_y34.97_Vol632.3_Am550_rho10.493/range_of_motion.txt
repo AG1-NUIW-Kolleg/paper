@@ -1,0 +1,9 @@
+Range of Motion Analysis
+==================================================
+
+Source: muscle_length_contraction.csv
+Number of timesteps: 1000
+
+Maximum muscle length (z_max): 40.55113328 cm
+Minimum muscle length (z_min): 36.96151809 cm
+Range of Motion (ROM):          3.58961519 cm
