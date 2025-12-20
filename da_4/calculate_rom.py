@@ -90,13 +90,13 @@ def process_directory(sim_dir):
             f.write(f"Minimum muscle length (z_min): {z_min:.8f} cm\n")
             f.write(f"Range of Motion (ROM):          {rom:.8f} cm\n")
         
-        print(f"  ✅ ROM = {rom:.8f} cm (z_max: {z_max:.8f}, z_min: {z_min:.8f})")
-        print(f"  📝 Results written to: {output_file.name}")
+        print(f" ROM = {rom:.8f} cm (z_max: {z_max:.8f}, z_min: {z_min:.8f})")
+        print(f" Results written to: {output_file.name}")
         
         return True
         
     except Exception as e:
-        print(f"  ❌ Error writing output file: {e}")
+        print(f" Error writing output file: {e}")
         return False
 
 
@@ -107,7 +107,7 @@ def main():
     base_dir = Path(__file__).parent / "archived_results"
     
     if not base_dir.exists():
-        print(f"❌ Error: archived_results directory not found at {base_dir}")
+        print(f"Error: archived_results directory not found at {base_dir}")
         sys.exit(1)
     
     print("=" * 70)
@@ -119,7 +119,7 @@ def main():
     subdirs = sorted([d for d in base_dir.iterdir() if d.is_dir()])
     
     if not subdirs:
-        print(f"\n❌ No subdirectories found in {base_dir}")
+        print(f"\nNo subdirectories found in {base_dir}")
         sys.exit(1)
     
     print(f"\nFound {len(subdirs)} simulation directories")
@@ -139,15 +139,15 @@ def main():
     print("Summary")
     print("=" * 70)
     print(f"Total directories processed: {len(subdirs)}")
-    print(f"✅ Successful: {success_count}")
-    print(f"❌ Failed: {failure_count}")
+    print(f"Successful: {success_count}")
+    print(f"Failed: {failure_count}")
     print("=" * 70)
     
     if failure_count > 0:
-        print("\n⚠️  Some directories failed. Check the output above for details.")
+        print("\nSome directories failed. Check the output above for details.")
         sys.exit(1)
     else:
-        print("\n✅ All directories processed successfully!")
+        print("\nAll directories processed successfully!")
         sys.exit(0)
 
 
