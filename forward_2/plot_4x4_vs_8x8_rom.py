@@ -21,17 +21,24 @@ def read_rom_from_file(file_path):
         dict with z_max, z_min, rom values or None if file doesn't exist
     """
     if not file_path.exists():
-        print(f"⚠️  File not found: {file_path}")
+        print(f"File not found: {file_path}")
         return None
     
     try:
         with open(file_path, 'r') as f:
             content = f.read()
         
-        # Extract values using regex
-        z_max_match = re.search(r'Maximum muscle length \(z_max\):\s+([\d.]+)', content)
-        z_min_match = re.search(r'Minimum muscle length \(z_min\):\s+([\d.]+)', content)
-        rom_match = re.search(r'Range of Motion \(ROM\):\s+([\d.]+)', content)
+        # Extract values using regex - handle both formats
+        # Format 1: "z_max: 34.97"
+        z_max_match = re.search(r'z_max:\s+([\d.]+)', content)
+        z_min_match = re.search(r'z_min:\s+([\d.]+)', content)
+        rom_match = re.search(r'ROM:\s+([\d.]+)', content)
+        
+        # Format 2: "Maximum muscle length (z_max): 34.97"
+        if not (z_max_match and z_min_match and rom_match):
+            z_max_match = re.search(r'Maximum muscle length \(z_max\):\s+([\d.]+)', content)
+            z_min_match = re.search(r'Minimum muscle length \(z_min\):\s+([\d.]+)', content)
+            rom_match = re.search(r'Range of Motion \(ROM\):\s+([\d.]+)', content)
         
         if z_max_match and z_min_match and rom_match:
             return {
@@ -40,11 +47,11 @@ def read_rom_from_file(file_path):
                 'rom': float(rom_match.group(1))
             }
         else:
-            print(f"⚠️  Could not parse values from: {file_path}")
+            print(f"Could not parse values from: {file_path}")
             return None
             
     except Exception as e:
-        print(f"❌ Error reading {file_path}: {e}")
+        print(f"Error reading {file_path}: {e}")
         return None
 
 
@@ -77,7 +84,7 @@ def main():
             print(f"  z_min = {result['z_min']:.8f} cm")
     
     if len(data) != 4:
-        print("\n❌ Error: Could not read all ROM files!")
+        print("\nError: Could not read all ROM files!")
         return
     
     # Calculate ratios
@@ -229,22 +236,7 @@ def main():
     
     # Show plot
     plt.show()
-    
-    # Print summary
-    print("\n" + "=" * 70)
-    print("Summary")
-    print("=" * 70)
-    print(f"\n📊 Key Findings:")
-    print(f"  • 4x4 mesh produces {ratio_0N:.2f}x larger ROM than 8x8 mesh (0N)")
-    print(f"  • 4x4 mesh produces {ratio_31N:.2f}x larger ROM than 8x8 mesh (31N)")
-    print(f"  • Ratio consistency: {abs(ratio_0N - ratio_31N):.4f} (smaller = more proportional)")
-    
-    if abs(ratio_0N - ratio_31N) < 0.1:
-        print(f"\n✅ The meshes show CONSISTENT proportionality across prestretch conditions!")
-    else:
-        print(f"\n⚠️  The meshes show DIFFERENT proportionality across prestretch conditions!")
-    
-    print(f"\n📈 ROM increases with prestretch:")
+    print(f"\nROM increases with prestretch:")
     print(f"  • 4x4: {data['4x4_0N']['rom']:.2f} → {data['4x4_31N']['rom']:.2f} cm (+{((data['4x4_31N']['rom']/data['4x4_0N']['rom']-1)*100):.1f}%)")
     print(f"  • 8x8: {data['8x8_0N']['rom']:.2f} → {data['8x8_31N']['rom']:.2f} cm (+{((data['8x8_31N']['rom']/data['8x8_0N']['rom']-1)*100):.1f}%)")
     

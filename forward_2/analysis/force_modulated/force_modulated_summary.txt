@@ -1,0 +1,34 @@
+================================================================================
+FORCE-MODULATED LINEAR RELATIONSHIP: ROM_8x8 = ROM_4x4 × α(F)
+================================================================================
+
+FINAL MODEL (Best Fit: Quadratic)
+--------------------------------------------------------------------------------
+α(F) = -0.0001050999 × F² + 0.000394 × F + 0.568314
+
+Therefore:
+ROM_8x8 = ROM_4x4 × [-0.0001050999 × F² + 0.000394 × F + 0.568314]
+
+Model Performance:
+  R² = 0.8275
+  RMSE = 0.030547 cm
+  Max Error = 0.071345 cm
+
+PHYSICAL INTERPRETATION
+--------------------------------------------------------------------------------
+At F = 0 N:  α = 0.5683 (56.8%)
+At F = 10 N: α = 0.5617 (56.2%)
+At F = 20 N: α = 0.5341 (53.4%)
+At F = 35 N: α = 0.4533 (45.3%)
+
+Total change: -11.50% (0.5683 → 0.4533)
+
+CONCLUSION
+--------------------------------------------------------------------------------
+The relationship between 8x8 and 4x4 ROM is NOT a simple linear relationship,
+but a FORCE-MODULATED linear relationship where the scaling factor α(F)
+decreases quadratically with increasing prestretch force.
+
+This suggests that the finer 8x8 mesh captures different (more realistic)
+mechanical behavior at higher forces compared to the coarser 4x4 mesh.
+================================================================================
