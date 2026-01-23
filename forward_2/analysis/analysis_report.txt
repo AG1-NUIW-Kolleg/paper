@@ -1,0 +1,56 @@
+================================================================================
+MESH RESOLUTION COMPARISON ANALYSIS (4x4 vs 8x8)
+================================================================================
+
+1. DATASET SUMMARY
+--------------------------------------------------------------------------------
+4x4 Mesh: 36 simulations (Force: 0-35 N in 1N steps)
+8x8 Mesh: 36 simulations (Force: 0-35 N in 1N steps)
+Common data points: 36
+All force values analyzed: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+
+ROM Statistics:
+  4x4: Mean=3.196 cm, Std=0.254 cm, Range=[2.661, 3.529] cm
+  8x8: Mean=1.691 cm, Std=0.074 cm, Range=[1.545, 1.785] cm
+
+2. CORRELATION ANALYSIS (4x4 vs 8x8)
+--------------------------------------------------------------------------------
+Pearson Correlation: r=0.4547 (p=5.33e-03)
+Spearman Correlation: ρ=0.3099 (p=6.59e-02)
+
+3. LINEAR RELATIONSHIP (8x8 = slope × 4x4 + intercept)
+--------------------------------------------------------------------------------
+Slope: 0.1316
+Intercept: 1.2703 cm
+R²: 0.2068
+p-value: 5.33e-03
+
+Interpretation:
+  → Slope < 1.0: 8x8 ROM is 86.8% smaller on average
+
+Residuals:
+  Mean: 0.0000 cm
+  Std Dev: 0.0655 cm
+  Max Abs: 0.1144 cm
+
+4. FORCE-ROM RELATIONSHIP MODELS
+--------------------------------------------------------------------------------
+4x4 Mesh:
+  Linear: R²=0.9242, ROM = 0.0235×F + 2.7843
+  Quadratic: R²=0.9735
+    ROM = -0.000585×F² + 0.0440×F + 2.6682
+
+8x8 Mesh:
+  Linear: R²=0.0754, ROM = 0.0019×F + 1.6569
+  Quadratic: R²=0.9709
+    ROM = -0.000722×F² + 0.0272×F + 1.5137
+
+================================================================================
+5. CONCLUSIONS
+--------------------------------------------------------------------------------
+• 4x4 Mesh: APPROXIMATELY LINEAR relationship (quadratic improvement: 0.049)
+• 8x8 Mesh: NON-LINEAR relationship (quadratic improves R² by 0.896)
+
+• Mesh agreement: R²=0.207 suggests MODERATE agreement - mesh size has notable impact
+
+================================================================================

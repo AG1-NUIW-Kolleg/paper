@@ -1,0 +1,18 @@
+Parameters:
+-----------
+Mesh Size: 8x8
+Force: 24 N
+Simulation Time: 100 ms
+
+Prestretch Results:
+------------------
+Initial Length: 39.92607969714876 cm
+Final Length (after prestretch): 39.92607969714876 cm
+
+Contraction Results:
+-------------------
+Maximum Muscle Length (z_max): 39.92608054212303 cm
+Minimum Muscle Length (z_min): 38.17413779563226 cm
+Range of Motion (ROM): 1.75194274649077 cm
+
+Completed: So 11. Jan 04:32:55 CET 2026
