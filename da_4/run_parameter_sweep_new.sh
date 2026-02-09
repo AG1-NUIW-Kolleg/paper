@@ -7,7 +7,7 @@
 #
 # Parameters varied:
 # FORCE_TARGETS=(0 3 6 9 12 15 18 21 24 27 30 33 36 39 42 45)  # [N] referenced to min area
-# ASPECT_RATIOS=(6.88 7.95 9.03 10.1)                          # a/b ratios
+# ASPECT_RATIOS=(6.88 7.95 9.03 10.1)                          # b/a ratios (length/cross-section)
 # VOLUMES=(421.6 455.9 573.5 691.2 738.0)                      # [cm³]
 # AM/RHO: 4 random combinations from available values
 # 
@@ -83,7 +83,8 @@ fi
 # NOTE: This configuration uses surface-area-adjusted forces and aspect ratios
 # See calculate_new_parameters.ipynb for detailed calculations
 
-# 1. Aspect ratios (a/b) - 4 equally-spaced values from 6.88 to 10.1
+# 1. Aspect ratios (b/a) - length / cross-section
+# 4 equally-spaced values from 6.88 to 10.1
 ASPECT_RATIOS=(6.8800 7.9533 9.0267 10.1000)
 
 # 2. Volume values (cm³) - reduced set
@@ -94,7 +95,7 @@ VOLUMES=(421.6 455.9 573.5 691.2 738.0)
 FORCE_TARGETS=(0 3 6 9 12 15 18 21 24 27 30 33 36 39 42 45)
 
 # 4. Reference surface area (cm²) - minimum area for force scaling
-REFERENCE_AREA=203.3883
+REFERENCE_AREA=12.033883
 
 # 5. Random Am/Rho combinations (4 samples instead of all 12)
 # Generated with random seed 42 for reproducibility
@@ -246,12 +247,12 @@ create_experiment_dir() {
     
     # Calculate muscle dimensions from volume and aspect ratio
     # For cuboid [b, a, a]: Volume = b * a²
-    # Aspect ratio r = a/b, so a = r * b
-    # Volume = b * (r*b)² = b³ * r²
-    # Therefore: b = (Volume / r²)^(1/3) and a = r * b
+    # Aspect ratio r = b/a (length / cross-section), so b = r * a
+    # Volume = (r*a) * a² = a³ * r
+    # Therefore: a = (Volume / r)^(1/3) and b = r * a
     
-    local muscle_b=$(echo "scale=6; e((l(${volume} / (${aspect_ratio} * ${aspect_ratio})) / 3) * l(10) / l(10))" | bc -l)
-    local muscle_a=$(echo "scale=6; ${aspect_ratio} * ${muscle_b}" | bc -l)
+    local muscle_a=$(echo "scale=6; e((l(${volume} / ${aspect_ratio}) / 3) * l(10) / l(10))" | bc -l)
+    local muscle_b=$(echo "scale=6; ${aspect_ratio} * ${muscle_a}" | bc -l)
     
     # Calculate surface area for force adjustment
     local surface_area=$(echo "scale=6; ${muscle_a} * ${muscle_a}" | bc -l)
@@ -342,8 +343,8 @@ create_experiment_dir() {
 - Template: ${TEMPLATE_DIR}
 
 ## Calculated Values
-- muscle_b = (Vol/r²)^(1/3) = (${volume}/${aspect_ratio}²)^(1/3) = ${muscle_b} cm
-- muscle_a = r × b = ${aspect_ratio} × ${muscle_b} = ${muscle_a} cm
+- muscle_a = (Vol/r)^(1/3) = (${volume}/${aspect_ratio})^(1/3) = ${muscle_a} cm
+- muscle_b = r × a = ${aspect_ratio} × ${muscle_a} = ${muscle_b} cm
 - F_actual = F_target × (A/A_ref) = ${force_target} × (${surface_area}/${REFERENCE_AREA}) = ${force_actual} N
 
 ## Run Command
@@ -401,8 +402,8 @@ run_simulation_wrapper() {
     local force_actual=$(cat "${exp_dir}/force_actual.txt")
     
     # Calculate muscle dimensions for logging
-    local muscle_b=$(echo "scale=6; e((l(${volume} / (${aspect_ratio} * ${aspect_ratio})) / 3) * l(10) / l(10))" | bc -l)
-    local muscle_a=$(echo "scale=6; ${aspect_ratio} * ${muscle_b}" | bc -l)
+    local muscle_a=$(echo "scale=6; e((l(${volume} / ${aspect_ratio}) / 3) * l(10) / l(10))" | bc -l)
+    local muscle_b=$(echo "scale=6; ${aspect_ratio} * ${muscle_a}" | bc -l)
     
     # Log to master
     {
@@ -453,8 +454,8 @@ save_results() {
     local rho=$7
     
     # Calculate muscle dimensions
-    local muscle_b=$(echo "scale=6; e((l(${volume} / (${aspect_ratio} * ${aspect_ratio})) / 3) * l(10) / l(10))" | bc -l)
-    local muscle_a=$(echo "scale=6; ${aspect_ratio} * ${muscle_b}" | bc -l)
+    local muscle_a=$(echo "scale=6; e((l(${volume} / ${aspect_ratio}) / 3) * l(10) / l(10))" | bc -l)
+    local muscle_b=$(echo "scale=6; ${aspect_ratio} * ${muscle_a}" | bc -l)
     local surface_area=$(echo "scale=6; ${muscle_a} * ${muscle_a}" | bc -l)
     
     # Format for archive directory
