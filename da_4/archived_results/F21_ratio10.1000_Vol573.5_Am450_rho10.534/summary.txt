@@ -1,0 +1,25 @@
+Parameters:
+-----------
+Force Target (at reference): 21 N
+Force Actual (at geometry): 25.780225 N
+Aspect Ratio (a/b): 10.1000
+muscle_extent: [3.843586, 3.843586, 38.820218] cm
+Volume: 573.5 cm³
+Surface Area: 14.773153 cm²
+Am: 450 cm⁻¹
+Rho: 10.534 [1e-4 kg/cm³]
+
+Force Adjustment:
+----------------
+Reference Area: 12.033883 cm²
+Geometry Area: 14.773153 cm²
+Area Ratio: 1.2276
+
+Results:
+--------
+Initial Length: 38.820218 cm
+Final Length: 47.88515690700133 cm
+Elongation: 9.06493890700133 cm
+Strain: .233510
+
+Completed: Di 10. Feb 03:15:16 CET 2026
