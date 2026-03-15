@@ -1,0 +1,35 @@
+Parameters:
+-----------
+Force Target (at reference): 45 N
+Force Actual (at geometry): 76.644035 N
+Stress (at geometry): 3.73944135 N/cm²
+Aspect Ratio (b/a): 7.9533
+muscle_extent: [4.527264, 4.527264, 36.006688] cm
+Volume: 738.0 cm³
+Surface Area: 20.496119 cm²
+Am: 550 cm⁻¹
+Rho: 10.534 [1e-4 kg/cm³]
+
+Force Adjustment:
+----------------
+Reference Area: 12.033883 cm²
+Geometry Area: 20.496119 cm²
+Area Ratio: 1.7032
+Reference Stress: 3.73944137 N/cm²
+Applied Stress: 3.73944135 N/cm²
+
+Prestretch Results:
+------------------
+Initial Length: 36.006687999999976 cm
+Prestretch Final Length: 61.453565233087026 cm
+Prestretch Elongation: 25.446877233087050 cm
+Prestretch Strain: .706726
+
+Contraction Results (ROM):
+--------------------------
+Maximum Length: 61.45358839146246 cm
+Minimum Length: 54.095076452404676 cm
+Range of Motion (ROM): 7.358511939057784 cm
+Contraction Strain (ROM/Initial): .204365
+
+Completed: So 8. Mär 01:04:51 CET 2026

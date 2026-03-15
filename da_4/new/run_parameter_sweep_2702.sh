@@ -91,7 +91,7 @@ AM_VALUES=(450 500 550)
 RHO_VALUES=(10.493 10.534 10.575 10.616)
 
 # Simulation parameters
-ENDTIME_MS=200  # 200 ms simulation time
+ENDTIME_MS=200  # 200 ms simulation time (full contraction cycle)
 N_RANKS=1       # Number of MPI ranks
 
 # Colors for output
