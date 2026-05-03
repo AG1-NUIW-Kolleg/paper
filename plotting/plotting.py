@@ -1,9 +1,22 @@
-#%%
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
+from matplotlib.ticker import MaxNLocator
+
 from utils import *
-#%%
+
+
 def select_bo_stages(checkpoints: dict[int, dict]) -> list[int]:
     available = np.array(sorted(checkpoints))
-    preferred = [int(available.min()), (int(available.max())-int(available.min()))//2, int(available.max())]
+    preferred = [
+        int(available.min()),
+        int(available.min() + round((available.max() - available.min()) / 2)),
+        int(available.max()),
+    ]
 
     selected: list[int] = []
     for target in preferred:
@@ -21,7 +34,11 @@ def select_bo_stages(checkpoints: dict[int, dict]) -> list[int]:
 
 
 def posterior_arrays(chk: dict) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    return clean_xy(tensor_to_numpy(chk["X_plot"]), tensor_to_numpy(chk["mu"]), tensor_to_numpy(chk["sigma"]))
+    return clean_xy(
+        tensor_to_numpy(chk["X_plot"]),
+        tensor_to_numpy(chk["mu"]),
+        tensor_to_numpy(chk["sigma"]),
+    )
 
 
 def plot_bo_posterior_stage(
@@ -43,7 +60,7 @@ def plot_bo_posterior_stage(
         color=COL_GP_BAND,
         alpha=GP_BAND_ALPHA,
         linewidth=0,
-        zorder=2,
+        zorder=1,
     )
     ax.plot(x, mu, color=COL_GP, lw=GP_LW, zorder=3)
 
@@ -79,7 +96,7 @@ def plot_bo_posterior_stage(
             color=COL_BEST,
             lw=BEST_LINE_LW,
             ls=BEST_LINESTYLE,
-            ymax=0.89,
+            ymax=0.91,
             zorder=4,
         )
     else:
@@ -99,7 +116,9 @@ def plot_bo_posterior_stage(
     ax.set_xlabel("Prestretch force (N)")
     if show_ylabel:
         ax.set_ylabel("ROM (cm)")
-    ax.grid(axis="y", color="0.88", linewidth=0.45)
+
+    ax.set_axisbelow(True)
+    ax.grid(axis="y", color="0.88", linewidth=0.45, zorder=0)
     polish_axes(ax)
 
     return x, mu, sigma
@@ -161,8 +180,9 @@ def make_bo_progression_plot() -> None:
             marker=BO_MARKER,
             color=COL_BO,
             lw=0,
-            markersize=5.0,
+            markersize=4.7,
             markeredgewidth=BO_OBS_LW,
+            alpha=BO_OBS_ALPHA,
             label="BO evaluations",
         ),
         Line2D([0], [0], color=COL_NEXT, lw=NEXT_LINE_LW, ls=NEXT_LINESTYLE, label="next query"),
@@ -172,12 +192,11 @@ def make_bo_progression_plot() -> None:
     apply_fixed_layout(fig)
     savefig(fig, "bo_progression")
 
-#%%
-make_bo_progression_plot()
-
-#%%
-def make_augmentation_density_ridgeline_plot(da: dict[str, pd.DataFrame], show_da_underlay=True) -> None:
-    """Compact conditional ROM density ridgelines."""
+def make_augmentation_density_ridgeline_plot(
+    da: dict[str, pd.DataFrame],
+    *,
+    show_da_underlay: bool = True,
+) -> None:
     frames = list(da.values())
     all_rom = pd.concat([df["rom"] for df in frames]).replace([np.inf, -np.inf], np.nan).dropna()
     rom_min = float(all_rom.min())
@@ -190,7 +209,7 @@ def make_augmentation_density_ridgeline_plot(da: dict[str, pd.DataFrame], show_d
 
     x_grid = np.linspace(xlim[0], xlim[1], KDE_GRID_1D)
     density_scale = global_kde_max_for_frames(frames, x_grid)
-    display_height = DENSITY_WIDTH_FRACTION  # row spacing is 1
+    display_height = DENSITY_WIDTH_FRACTION
 
     fig, axes = plt.subplots(
         1,
@@ -207,6 +226,31 @@ def make_augmentation_density_ridgeline_plot(da: dict[str, pd.DataFrame], show_d
         prestretches = np.array(sorted(df["prestretch"].dropna().unique()), dtype=float)
         row_pos = np.arange(prestretches.size, dtype=float)
 
+        panel_label(ax, letter)
+        ax.set_title(label, loc="left", pad=5)
+        ax.set_xlim(*xlim)
+        ax.set_ylim(-0.25, prestretches.size - 1 + display_height + 0.25)
+        ax.set_yticks(row_pos)
+        if i == 0:
+            ax.set_yticklabels([f"{p:.0f}" for p in prestretches])
+            ax.set_ylabel("Prestretch force (N)")
+        else:
+            ax.tick_params(labelleft=False)
+        ax.set_xlabel("")
+        ax.tick_params(axis="both", which="major", pad=2.0)
+        ax.xaxis.labelpad = 5.0
+        ax.yaxis.labelpad = 5.0
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=5, prune=None))
+        add_gridlines_at_y(ax, row_pos, color="0.90", zorder=0)
+
+        add_da_underlay_ridgeline(
+            ax,
+            df,
+            alpha=DA_BACKGROUND_ALPHA_RIDGE,
+            zorder=1,
+            show_da_underlay=show_da_underlay,
+        )
+
         for y0, p in zip(row_pos, prestretches):
             values = grouped_values_at_x(df, float(p))
             plot_ridgeline_kde(
@@ -217,29 +261,8 @@ def make_augmentation_density_ridgeline_plot(da: dict[str, pd.DataFrame], show_d
                 display_height=display_height,
                 density_scale=density_scale,
                 color=color,
-                zorder=1,
+                zorder=2,
             )
-
-        add_da_underlay_ridgeline(ax, df, alpha=DA_BACKGROUND_ALPHA_RIDGE, zorder=3, show_da_underlay=show_da_underlay)
-
-        panel_label(ax, letter)
-        ax.set_title(label, loc="left", pad=5)
-        ax.set_xlim(*xlim)
-        ax.set_ylim(-0.25, prestretches.size - 1 + display_height + 0.25)
-        ax.set_yticks(row_pos)
-
-        if i == 0:
-            ax.set_yticklabels([f"{p:.0f}" for p in prestretches])
-            ax.set_ylabel("Prestretch force (N)")
-        else:
-            ax.tick_params(labelleft=False)
-
-        ax.grid(axis="x", color="0.90", linewidth=0.45)
-        ax.set_xlabel("")
-        ax.tick_params(axis="both", which="major", pad=2.0)
-        ax.xaxis.labelpad = 5.0
-        ax.yaxis.labelpad = 5.0
-        ax.xaxis.set_major_locator(MaxNLocator(nbins=5, prune=None))
 
     fig.supxlabel("ROM (cm)", y=0.210, fontsize=8.0)
     add_bottom_legend(fig, da_density_legend_handles(show_da_underlay), ncol=5 if show_da_underlay else 4)
@@ -248,13 +271,19 @@ def make_augmentation_density_ridgeline_plot(da: dict[str, pd.DataFrame], show_d
     savefig(fig, f"augmentation_density_ridgeline{suffix}")
 
 
-def make_augmentation_density_xy_plot(da: dict[str, pd.DataFrame], show_da_underlay:bool=True) -> None:
-    """Augmentation densities in data coordinates: x = prestretch force, y = ROM."""
+def make_augmentation_density_xy_plot(
+    da: dict[str, pd.DataFrame],
+    *,
+    show_da_underlay: bool = True,
+) -> None:
     frames = list(da.values())
 
-    all_prestretches = np.concatenate([df["prestretch"].dropna().unique().astype(float) for df in frames])
+    all_prestretches = np.concatenate([
+        df["prestretch"].dropna().unique().astype(float)
+        for df in frames
+    ])
     display_width = DENSITY_WIDTH_FRACTION * prestretch_display_spacing(all_prestretches)
-    xlim, ylim = finite_xy_limits(frames, x_extra_right=display_width)
+    xlim, ylim = finite_xy_limits(frames)
     y_grid = np.linspace(ylim[0], ylim[1], KDE_GRID_1D)
     density_scale = global_kde_max_for_frames(frames, y_grid)
 
@@ -270,9 +299,29 @@ def make_augmentation_density_xy_plot(da: dict[str, pd.DataFrame], show_da_under
 
     for i, (ax, (label, df), letter) in enumerate(zip(axes, da.items(), "ABC")):
         color = DA_COLORS[label]
-        add_da_underlay_xy(ax, df, alpha=DA_BACKGROUND_ALPHA, zorder=0, show_da_underlay=show_da_underlay)
+        density_xs = np.array(sorted(df["prestretch"].dropna().unique()), dtype=float)
 
-        for x0 in sorted(df["prestretch"].dropna().unique()):
+        panel_label(ax, letter)
+        ax.set_title(label, loc="left", pad=5)
+        ax.set_xlim(*xlim)
+        ax.set_ylim(*ylim)
+        ax.set_xlabel("Prestretch force (N)")
+        if i == 0:
+            ax.set_ylabel("ROM (cm)")
+        else:
+            ax.tick_params(labelleft=False)
+        polish_axes(ax, nbins=4)
+        add_gridlines_at_x(ax, density_xs, color="0.90", zorder=0)
+
+        add_da_underlay_xy(
+            ax,
+            df,
+            alpha=DA_BACKGROUND_ALPHA,
+            zorder=1,
+            show_da_underlay=show_da_underlay,
+        )
+
+        for x0 in density_xs:
             values = grouped_values_at_x(df, float(x0))
             plot_conditional_kde_glyph(
                 ax,
@@ -283,36 +332,15 @@ def make_augmentation_density_xy_plot(da: dict[str, pd.DataFrame], show_da_under
                 density_scale=density_scale,
                 color=color,
                 side="right",
-                zorder=1,
+                zorder=2,
             )
-
-        panel_label(ax, letter)
-        ax.set_title(label, loc="left", pad=5)
-        ax.set_xlim(*xlim)
-        ax.set_ylim(*ylim)
-        ax.set_xlabel("Prestretch force (N)")
-        ax.grid(axis="y", color="0.90", linewidth=0.45)
-        polish_axes(ax, nbins=4)
-        if i == 0:
-            ax.set_ylabel("ROM (cm)")
-        else:
-            ax.tick_params(labelleft=False)
 
     add_bottom_legend(fig, da_density_legend_handles(show_da_underlay), ncol=5 if show_da_underlay else 4)
     apply_fixed_layout(fig)
     suffix = "_with_underlay" if show_da_underlay else ""
     savefig(fig, f"augmentation_density_xy{suffix}")
 
-#%%
-da = load_da()
-#xy consistent with other figures
-make_augmentation_density_xy_plot(da)
-make_augmentation_density_xy_plot(da, False)
-#Ridgeline
-make_augmentation_density_ridgeline_plot(da)
-make_augmentation_density_ridgeline_plot(da, False)
 
-#%%
 def cluster_close_prestretches(
     df: pd.DataFrame,
     *,
@@ -320,11 +348,6 @@ def cluster_close_prestretches(
     max_prestretch: float | None = None,
     best_match_tol: float = BEST_PRESTRETCH_MATCH_TOL,
 ) -> pd.DataFrame:
-    """Select one true DA prestretch per near-duplicate cluster.
-
-    Clustering only avoids overplotting. KDEs are estimated only from the
-    selected true prestretch value, not pooled neighboring values.
-    """
     unique_p = np.array(sorted(df["prestretch"].dropna().unique()), dtype=float)
     if unique_p.size == 0:
         return pd.DataFrame(columns=[
@@ -361,7 +384,10 @@ def cluster_close_prestretches(
         else:
             selected = float(cluster[np.argmin(np.abs(cluster - float(np.median(cluster))))])
 
-        tmp = df.loc[np.isclose(df["prestretch"].to_numpy(dtype=float), selected, rtol=0.0, atol=GROUP_MATCH_TOL), ["prestretch", "rom"]].copy()
+        tmp = df.loc[
+            np.isclose(df["prestretch"].to_numpy(dtype=float), selected, rtol=0.0, atol=GROUP_MATCH_TOL),
+            ["prestretch", "rom"],
+        ].copy()
         if tmp.empty:
             continue
         tmp["prestretch_cluster"] = selected
@@ -375,7 +401,7 @@ def cluster_close_prestretches(
     return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
 
 
-def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
+def make_bo_augmentation_overlay_plot(*, show_da_underlay: bool = True) -> None:
     bo = load_bo_csv()
     bo_da = load_bo_da_predictions()
     best = bo.loc[bo["rom"].idxmax()]
@@ -385,7 +411,7 @@ def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
     cluster_positions = np.array(sorted(bo_da_selected["prestretch_cluster"].unique()), dtype=float)
 
     display_width = COMBINED_DENSITY_WIDTH_FRACTION * prestretch_display_spacing(cluster_positions)
-    xlim, ylim = finite_xy_limits([bo[["prestretch", "rom"]], bo_da[["prestretch", "rom"]]], x_extra_right=display_width)
+    xlim, ylim = finite_xy_limits([bo[["prestretch", "rom"]], bo_da[["prestretch", "rom"]]])
     y_grid = np.linspace(ylim[0], ylim[1], KDE_GRID_1D)
     density_scale = global_kde_max_for_groups(
         bo_da_selected.rename(columns={"prestretch_cluster": "plot_x"}),
@@ -402,7 +428,20 @@ def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
         gridspec_kw={"width_ratios": [4.8, 1.35], "wspace": 0.18},
     )
 
-    add_da_underlay_xy(ax, bo_da, alpha=DA_BACKGROUND_ALPHA, zorder=0, show_da_underlay=show_da_underlay)
+    ax.set_xlim(*xlim)
+    ax.set_ylim(*ylim)
+    ax.set_xlabel("Prestretch force (N)")
+    ax.set_ylabel("ROM (cm)")
+    polish_axes(ax)
+    add_gridlines_at_x(ax, cluster_positions, color="0.90", zorder=0)
+
+    add_da_underlay_xy(
+        ax,
+        bo_da,
+        alpha=DA_BACKGROUND_ALPHA,
+        zorder=1,
+        show_da_underlay=show_da_underlay,
+    )
 
     for x0 in cluster_positions:
         values = grouped_values_at_x(bo_da_selected, float(x0), x_col="prestretch_cluster", y_col="rom")
@@ -415,7 +454,7 @@ def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
             density_scale=density_scale,
             color=COL_DA,
             side="right",
-            zorder=1,
+            zorder=2,
         )
 
     ax.axvline(
@@ -424,7 +463,7 @@ def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
         lw=BEST_LINE_LW,
         ls=BEST_LINESTYLE,
         alpha=0.95,
-        ymax=0.89,
+        ymax=0.91,
         zorder=4,
     )
 
@@ -448,13 +487,6 @@ def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
         zorder=6,
     )
 
-    ax.set_xlim(*xlim)
-    ax.set_ylim(*ylim)
-    ax.set_xlabel("Prestretch force (N)")
-    ax.set_ylabel("ROM (cm)")
-    ax.grid(axis="y", color="0.90", linewidth=0.45)
-    polish_axes(ax)
-
     ax_leg.axis("off")
     legend_handles: list = []
     if show_da_underlay:
@@ -466,7 +498,7 @@ def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
                 color=DA_BACKGROUND_COLOR,
                 markerfacecolor=DA_BACKGROUND_COLOR,
                 markeredgewidth=0,
-                alpha=0.8,
+                alpha=0.65,
                 markersize=3.0,
                 label="All DA\nsamples",
             )
@@ -498,6 +530,14 @@ def make_bo_augmentation_overlay_plot(show_da_underlay:bool=True) -> None:
     suffix = "_with_underlay" if show_da_underlay else ""
     savefig(fig, f"bo_augmentation_overlay{suffix}")
 
-#%%
-make_bo_augmentation_overlay_plot(True)
-make_bo_augmentation_overlay_plot(False)
+if __name__ == "__main__":
+    make_bo_progression_plot()
+
+    da = load_da()
+    make_augmentation_density_xy_plot(da, show_da_underlay=True)
+    make_augmentation_density_xy_plot(da, show_da_underlay=False)
+    make_augmentation_density_ridgeline_plot(da, show_da_underlay=True)
+    make_augmentation_density_ridgeline_plot(da, show_da_underlay=False)
+
+    make_bo_augmentation_overlay_plot(show_da_underlay=True)
+    make_bo_augmentation_overlay_plot(show_da_underlay=False)

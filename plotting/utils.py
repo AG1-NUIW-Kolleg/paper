@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from pathlib import Path
 
@@ -12,7 +14,7 @@ from matplotlib.ticker import MaxNLocator
 from scipy.stats import gaussian_kde
 
 # -----------------------------------------------------------------------------
-# Paths
+# Paths and output
 # -----------------------------------------------------------------------------
 
 SAVE_PLOTS = True
@@ -68,58 +70,58 @@ COL_GP_BAND = "#E8F1F4"
 GP_BAND_ALPHA = 0.85
 GP_LW = 1.5
 
-COL_BO = "black"
+COL_BO = "#5A5A5A"
 COL_BEST = "#2B2B2B"
 COL_NEXT = "#D55E00"
 COL_MEDIAN_LEGEND = "black"
 
 BO_MARKER = "+"
-BO_OBS_SIZE = 40
-BO_OBS_LW = 0.9
-BO_OBS_ALPHA = 1
+BO_OBS_SIZE = 30
+BO_OBS_LW = 0.85
+BO_OBS_ALPHA = 0.90
 BO_HALO = False
 BO_OBS_HALO_SIZE = BO_OBS_SIZE + 10
 BO_OBS_HALO_LW = BO_OBS_LW + 0.3
 
 BEST_LINESTYLE = (0, (1.2, 1.8))
 NEXT_LINESTYLE = (0, (1.2, 1.8))
-BEST_LINE_LW = 1.3
-NEXT_LINE_LW = 1.05
+BEST_LINE_LW = 1.05
+NEXT_LINE_LW = 1.00
 
 # DA
 DA_COLORS = {
-    "100 samples": "#C76E5A",  # terracotta
-    "500 samples": "#7A6F9B",  # muted violet
+    "100 samples": "#C76E5A",   # terracotta
+    "500 samples": "#7A6F9B",   # muted violet
     "Full dataset": "#1F77B4",  # blue
 }
 COL_DA = DA_COLORS["Full dataset"]
 
 DA_BACKGROUND_COLOR = "#6E6E6E"
-DA_BACKGROUND_SIZE = 2.0
-DA_BACKGROUND_ALPHA = 0.2
+DA_BACKGROUND_SIZE = 1.2
+DA_BACKGROUND_ALPHA = 0.08
+DA_BACKGROUND_ALPHA_RIDGE = 0.07
 DA_BACKGROUND_RASTERIZED = True
-DA_BACKGROUND_ALPHA_RIDGE = 0.2
 
 # KDE density glyphs
 KDE_BW_1D = 0.22
 KDE_GRID_1D = 512
 KDE_MIN_N_1D = 3
 KDE_DISPLAY_EPS = 0.004
-DENSITY_WIDTH_FRACTION = 1
-COMBINED_DENSITY_WIDTH_FRACTION = 1
+DENSITY_WIDTH_FRACTION = 1.2
+COMBINED_DENSITY_WIDTH_FRACTION = 1.2
 KDE_GLYPH_LW = 1.0
 KDE_GLYPH_ALPHA = 0.95
-KDE_GLYPH_FILL_ALPHA = 0.18
+KDE_GLYPH_FILL_ALPHA = 0.16
 KDE_GLYPH_MEDIAN_LW = 0.85
 KDE_GLYPH_MEDIAN_LS = (0, (2.2, 1.6))
 
 # Matching / clustering
-BO_PRESTRETCH_CLUSTER_TOL = 1.0  # N; only for display selection in Fig. 5
-GROUP_MATCH_TOL = 1e-7  # exact grouping of true DA prestretches
-BEST_PRESTRETCH_MATCH_TOL = 1e-1  # only for matching BO best to rounded DA file values
+BO_PRESTRETCH_CLUSTER_TOL = 0.8  # N; display selection only
+GROUP_MATCH_TOL = 1e-7           # exact grouping of true DA prestretches
+BEST_PRESTRETCH_MATCH_TOL = 1e-1 # matching BO optimum to rounded DA CSV values
 
 # Axis padding
-X_LIMIT_PAD_FRAC = 0.06
+X_LIMIT_PAD_FRAC = 0.1
 Y_LIMIT_PAD_FRAC = 0.08
 
 # -----------------------------------------------------------------------------
@@ -143,6 +145,7 @@ plt.rcParams.update({
     "axes.spines.top": False,
     "axes.spines.right": False,
     "axes.linewidth": 0.7,
+    "axes.axisbelow": True,
     "xtick.direction": "out",
     "ytick.direction": "out",
     "xtick.major.size": 3.0,
@@ -168,6 +171,10 @@ plt.rcParams.update({
     "pdf.fonttype": 42,
     "ps.fonttype": 42,
 })
+
+# -----------------------------------------------------------------------------
+# Figure helpers
+# -----------------------------------------------------------------------------
 
 
 def savefig(fig: plt.Figure, name: str, size: tuple[float, float] = (FIG_W, FIG_H)) -> None:
@@ -226,11 +233,76 @@ def panel_label(ax: plt.Axes, label: str) -> None:
 
 
 def polish_axes(ax: plt.Axes, nbins: int = 5) -> None:
+    ax.set_axisbelow(True)
     ax.tick_params(axis="both", which="major", pad=2.0)
     ax.xaxis.labelpad = 5.0
     ax.yaxis.labelpad = 5.0
     ax.xaxis.set_major_locator(MaxNLocator(nbins=nbins, prune=None))
     ax.yaxis.set_major_locator(MaxNLocator(nbins=nbins, prune=None))
+
+
+def add_gridlines_at_x(
+    ax: plt.Axes,
+    xs,
+    *,
+    color: str = "0.90",
+    linewidth: float = 0.45,
+    alpha: float = 1.0,
+    zorder: float = 0.0,
+) -> None:
+    grid_xs = finite_unique_sorted(xs)
+    if grid_xs.size == 0:
+        return
+
+    ax.set_axisbelow(True)
+    ax.set_xticks(grid_xs, minor=True)
+    ax.grid(axis="x", which="minor", color=color, linewidth=linewidth, alpha=alpha, zorder=zorder)
+    ax.tick_params(
+        axis="x",
+        which="minor",
+        bottom=False,
+        top=False,
+        labelbottom=False,
+        labeltop=False,
+        length=0,
+    )
+
+
+def add_gridlines_at_y(
+    ax: plt.Axes,
+    ys,
+    *,
+    color: str = "0.90",
+    linewidth: float = 0.45,
+    alpha: float = 1.0,
+    zorder: float = 0.0,
+) -> None:
+    grid_ys = finite_unique_sorted(ys)
+    if grid_ys.size == 0:
+        return
+
+    ax.set_axisbelow(True)
+    ax.set_yticks(grid_ys, minor=True)
+    ax.grid(axis="y", which="minor", color=color, linewidth=linewidth, alpha=alpha, zorder=zorder)
+    ax.tick_params(
+        axis="y",
+        which="minor",
+        left=False,
+        right=False,
+        labelleft=False,
+        labelright=False,
+        length=0,
+    )
+
+
+def finite_unique_sorted(values) -> np.ndarray:
+    arr = np.asarray(list(values), dtype=float)
+    arr = arr[np.isfinite(arr)]
+    return np.unique(arr) if arr.size else arr
+
+# -----------------------------------------------------------------------------
+# Data helpers
+# -----------------------------------------------------------------------------
 
 
 def strip_unnamed_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -260,8 +332,7 @@ def clean_xy(x: np.ndarray, *ys: np.ndarray):
     return [df["x"].to_numpy()] + [df[f"y{i}"].to_numpy() for i in range(len(ys))]
 
 
-def finite_xy_limits(frames: list[pd.DataFrame], *, x_extra_right: float = 0.0) -> tuple[
-    tuple[float, float], tuple[float, float]]:
+def finite_xy_limits(frames: list[pd.DataFrame]) -> tuple[tuple[float, float], tuple[float, float]]:
     all_df = (
         pd.concat(frames, ignore_index=True)
         .replace([np.inf, -np.inf], np.nan)
@@ -279,7 +350,7 @@ def finite_xy_limits(frames: list[pd.DataFrame], *, x_extra_right: float = 0.0) 
     y_span = max(y_max - y_min, 1.0)
 
     return (
-        (x_min - X_LIMIT_PAD_FRAC * x_span, x_max + x_extra_right + X_LIMIT_PAD_FRAC * x_span),
+        (x_min - X_LIMIT_PAD_FRAC * x_span, x_max + X_LIMIT_PAD_FRAC * x_span),
         (y_min - Y_LIMIT_PAD_FRAC * y_span, y_max + Y_LIMIT_PAD_FRAC * y_span),
     )
 
@@ -313,24 +384,24 @@ def prestretch_display_spacing(prestretches: np.ndarray, *, fallback: float = 1.
 
 
 def grouped_values_at_x(
-        df: pd.DataFrame,
-        x0: float,
-        *,
-        x_col: str = "prestretch",
-        y_col: str = "rom",
-        match_tol: float = GROUP_MATCH_TOL,
+    df: pd.DataFrame,
+    x0: float,
+    *,
+    x_col: str = "prestretch",
+    y_col: str = "rom",
+    match_tol: float = GROUP_MATCH_TOL,
 ) -> np.ndarray:
     mask = np.isclose(df[x_col].to_numpy(dtype=float), x0, rtol=0.0, atol=match_tol)
     return df.loc[mask, y_col].to_numpy(dtype=float)
 
 
 def global_kde_max_for_groups(
-        df: pd.DataFrame,
-        y_grid: np.ndarray,
-        *,
-        x_col: str = "prestretch",
-        y_col: str = "rom",
-        bw_method: str | float = KDE_BW_1D,
+    df: pd.DataFrame,
+    y_grid: np.ndarray,
+    *,
+    x_col: str = "prestretch",
+    y_col: str = "rom",
+    bw_method: str | float = KDE_BW_1D,
 ) -> float:
     max_density = 0.0
     for x0 in sorted(df[x_col].dropna().unique()):
@@ -342,11 +413,23 @@ def global_kde_max_for_groups(
 
 
 def global_kde_max_for_frames(frames: list[pd.DataFrame], y_grid: np.ndarray) -> float:
+    if not frames:
+        return 0.0
     return max(global_kde_max_for_groups(df, y_grid) for df in frames)
 
+# -----------------------------------------------------------------------------
+# Plot primitives
+# -----------------------------------------------------------------------------
 
-def add_da_underlay_xy(ax: plt.Axes, df: pd.DataFrame, *, alpha: float = DA_BACKGROUND_ALPHA, zorder: float = 0,
-                       show_da_underlay=True) -> None:
+
+def add_da_underlay_xy(
+    ax: plt.Axes,
+    df: pd.DataFrame,
+    *,
+    alpha: float = DA_BACKGROUND_ALPHA,
+    zorder: float = 1,
+    show_da_underlay: bool = True,
+) -> None:
     if not show_da_underlay:
         return
     ax.scatter(
@@ -361,8 +444,14 @@ def add_da_underlay_xy(ax: plt.Axes, df: pd.DataFrame, *, alpha: float = DA_BACK
     )
 
 
-def add_da_underlay_ridgeline(ax: plt.Axes, df: pd.DataFrame, *, alpha: float = DA_BACKGROUND_ALPHA_RIDGE,
-                              zorder: float = 3, show_da_underlay=True) -> None:
+def add_da_underlay_ridgeline(
+    ax: plt.Axes,
+    df: pd.DataFrame,
+    *,
+    alpha: float = DA_BACKGROUND_ALPHA_RIDGE,
+    zorder: float = 1,
+    show_da_underlay: bool = True,
+) -> None:
     if not show_da_underlay:
         return
 
@@ -386,18 +475,17 @@ def add_da_underlay_ridgeline(ax: plt.Axes, df: pd.DataFrame, *, alpha: float = 
 
 
 def plot_ridgeline_kde(
-        ax: plt.Axes,
-        values: np.ndarray,
-        y0: float,
-        x_grid: np.ndarray,
-        *,
-        display_height: float,
-        density_scale: float,
-        color: str,
-        fill_alpha: float = KDE_GLYPH_FILL_ALPHA,
-        zorder: float = 1,
+    ax: plt.Axes,
+    values: np.ndarray,
+    y0: float,
+    x_grid: np.ndarray,
+    *,
+    display_height: float,
+    density_scale: float,
+    color: str,
+    fill_alpha: float = KDE_GLYPH_FILL_ALPHA,
+    zorder: float = 2,
 ) -> None:
-    """Draw one conditional ROM KDE as a ridgeline ridge."""
     if density_scale <= 0 or display_height <= 0:
         return
 
@@ -435,20 +523,19 @@ def plot_ridgeline_kde(
 
 
 def plot_conditional_kde_glyph(
-        ax: plt.Axes,
-        values_y: np.ndarray,
-        x0: float,
-        y_grid: np.ndarray,
-        *,
-        display_width: float,
-        density_scale: float,
-        color: str,
-        fill_alpha: float = KDE_GLYPH_FILL_ALPHA,
-        side: str = "right",
-        zorder: float = 1,
-        draw_median: bool = True,
+    ax: plt.Axes,
+    values_y: np.ndarray,
+    x0: float,
+    y_grid: np.ndarray,
+    *,
+    display_width: float,
+    density_scale: float,
+    color: str,
+    fill_alpha: float = KDE_GLYPH_FILL_ALPHA,
+    side: str = "right",
+    zorder: float = 2,
+    draw_median: bool = True,
 ) -> None:
-    """Draw p(y | x=x0) using one shared figure-level density scale."""
     if side not in {"right", "left", "both"}:
         raise ValueError("side must be 'right', 'left', or 'both'.")
     if density_scale <= 0 or display_width <= 0:
@@ -504,7 +591,7 @@ def plot_conditional_kde_glyph(
         )
 
 
-def da_density_legend_handles(show_da_underlay=True) -> list:
+def da_density_legend_handles(show_da_underlay: bool = True) -> list:
     handles: list = []
     if show_da_underlay:
         handles.append(
@@ -541,6 +628,10 @@ def da_density_legend_handles(show_da_underlay=True) -> list:
         )
     )
     return handles
+
+# -----------------------------------------------------------------------------
+# Loaders
+# -----------------------------------------------------------------------------
 
 
 def load_bo_csv() -> pd.DataFrame:
