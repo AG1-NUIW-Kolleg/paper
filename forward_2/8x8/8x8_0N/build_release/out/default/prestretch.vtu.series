@@ -1,7 +1,0 @@
-{
-	"file-series-version" : "1.0",
-	"files" : [
-		{ "name" : "prestretch_0000000.vtu", "time" : 0 },
-		{ "name" : "prestretch_0000001.vtu", "time" : 0 }
-	]
-}
